@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TapSlayer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-wrap">
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- TITLE SCREEN -->
+    <div id="screen-title" class="screen">
+      <div class="title-content">
+        <h1 class="gothic-title">TapSlayer</h1>
+        <p class="title-subtitle">Dark Fantasy · Tap to Slay</p>
+        <button id="btn-start" class="btn-primary">Tap to Begin</button>
+      </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="screen-game" class="screen hidden">
+      <div id="hud-top">
+        <span id="hud-level" class="hud-label">Level <span id="level-num">1</span></span>
+        <button id="btn-retire" class="btn-retire">Retire</button>
+        <span id="hud-gold" class="hud-label">🪙 <span id="gold-num">0</span></span>
+      </div>
+
+      <!-- Player hit flash -->
+      <div id="player-hit-flash"></div>
+
+      <div id="monster-area">
+        <div id="monster-name" class="gothic-heading"></div>
+        <div id="monster-wrap">
+          <canvas id="monster-display" class="monster-idle"></canvas>
+        </div>
+        <div id="hp-bar-wrap">
+          <div id="hp-bar-outer">
+            <div id="hp-bar-inner"></div>
+          </div>
+          <div id="hp-text"></div>
+        </div>
+      </div>
+
+      <div id="player-hp-section">
+        <div id="player-hp-row">
+          <span class="hud-label">❤️ <span id="player-hp-text">100 / 100</span></span>
+        </div>
+        <div id="player-hp-bar-outer">
+          <div id="player-hp-bar-inner"></div>
+        </div>
+      </div>
+
+      <div id="hud-bottom">
+        <span class="hud-label">DMG: <span id="dmg-num">1</span></span>
+        <span class="hud-label">CRIT: <span id="crit-num">5</span>%</span>
+        <button id="btn-shop" class="btn-shop">🛒 Shop</button>
+      </div>
+    </div>
+
+    <!-- SHOP SCREEN -->
+    <div id="screen-shop" class="screen hidden">
+      <h2 class="gothic-heading">The Merchant</h2>
+      <p id="shop-gold-display" class="shop-gold-display">🪙 <span id="shop-gold-num">0</span></p>
+      <div id="shop-items"></div>
+      <button id="btn-shop-close" class="btn-primary" style="margin-top:1rem;">Return to Battle</button>
+    </div>
+
+    <!-- UPGRADE SCREEN -->
+    <div id="screen-upgrade" class="screen hidden">
+      <h2 class="gothic-heading upgrade-heading">Choose Your Power</h2>
+      <div id="upgrade-cards"></div>
+    </div>
+
+    <!-- STATS SCREEN -->
+    <div id="screen-stats" class="screen hidden">
+      <div class="stats-content">
+        <h2 class="gothic-heading">Run Complete</h2>
+        <div id="stats-list"></div>
+        <button id="btn-play-again" class="btn-primary">Play Again</button>
+      </div>
+    </div>
+
+    <!-- OVERLAYS -->
+    <div id="banner-overlay" class="hidden">
+      <div id="banner-text"></div>
+    </div>
+
+    <div id="boss-warning" class="hidden">
+      <div id="boss-warning-text">⚠ BOSS INCOMING ⚠</div>
+    </div>
+
+    <div id="boss-tint" class="hidden"></div>
+
+    <!-- Floating damage numbers land here -->
+    <div id="damage-layer"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
