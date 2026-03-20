@@ -94,6 +94,75 @@ const SHOP_ITEMS = [
   },
 ];
 
+/* ===== ARMOR & WEAPON CATALOG ===== */
+const SLOT_META = {
+  weapon:   { label: 'Weapon',   icon: '⚔️' },
+  head:     { label: 'Head',     icon: '🪖' },
+  chest:    { label: 'Chest',    icon: '🧥' },
+  gloves:   { label: 'Gloves',   icon: '🥊' },
+  trousers: { label: 'Trousers', icon: '👖' },
+  greaves:  { label: 'Greaves',  icon: '👢' },
+  shield:   { label: 'Shield',   icon: '🛡️' },
+};
+
+const ARMOR_CATALOG = [
+  // ── WEAPONS ──────────────────────────────────────────────────────────────
+  { id: 'rusty-dagger',     name: 'Rusty Dagger',       icon: '🗡️', slot: 'weapon',   tier: 1, cost: 45,   desc: '+3 dmg, +3% crit',                                  stats: { dmgBonus: 3, critBonus: 0.03 } },
+  { id: 'iron-sword',       name: 'Iron Sword',          icon: '🔪', slot: 'weapon',   tier: 2, cost: 120,  desc: '+8 dmg, +5% crit',                                  stats: { dmgBonus: 8, critBonus: 0.05 } },
+  { id: 'warhammer',        name: 'Warhammer',           icon: '🔨', slot: 'weapon',   tier: 3, cost: 270,  desc: '+18 dmg, +0.3× crit mult',                          stats: { dmgBonus: 18, critMultBonus: 0.3 } },
+  { id: 'shadowfang',       name: 'Shadowfang',          icon: '🌑', slot: 'weapon',   tier: 4, cost: 500,  desc: '+14 dmg, +10% crit, +0.5× crit mult',               stats: { dmgBonus: 14, critBonus: 0.10, critMultBonus: 0.5 } },
+  { id: 'soul-reaper-w',    name: 'Soul Reaper',         icon: '💀', slot: 'weapon',   tier: 5, cost: 880,  desc: '+22 dmg, +8% crit, heal 8% max HP per kill',        stats: { dmgBonus: 22, critBonus: 0.08, killHealPct: 0.08 } },
+  { id: 'void-cleaver',     name: 'Void Cleaver',        icon: '🌟', slot: 'weapon',   tier: 6, cost: 1600, desc: '+35 dmg, +14% crit, +0.8× crit mult',               stats: { dmgBonus: 35, critBonus: 0.14, critMultBonus: 0.8 } },
+
+  // ── HEAD ─────────────────────────────────────────────────────────────────
+  { id: 'leather-cap',      name: 'Leather Cap',         icon: '🪖', slot: 'head',     tier: 1, cost: 50,   desc: '+15 max HP',                                        stats: { maxHpBonus: 15 } },
+  { id: 'iron-helm',        name: 'Iron Helm',           icon: '⛑️', slot: 'head',     tier: 2, cost: 130,  desc: '+30 max HP, -1 dmg taken',                          stats: { maxHpBonus: 30, damageReduction: 1 } },
+  { id: 'steel-coif',       name: 'Steel Coif',          icon: '🪖', slot: 'head',     tier: 3, cost: 270,  desc: '+45 max HP, -2 dmg taken',                          stats: { maxHpBonus: 45, damageReduction: 2 } },
+  { id: 'shadow-hood',      name: 'Shadow Hood',         icon: '🎭', slot: 'head',     tier: 4, cost: 480,  desc: '+60 max HP, -2 dmg taken, +5% crit',                stats: { maxHpBonus: 60, damageReduction: 2, critBonus: 0.05 } },
+  { id: 'warlord-crest',    name: "Warlord's Crest",     icon: '👑', slot: 'head',     tier: 5, cost: 820,  desc: '+85 max HP, -3 dmg taken, +8% crit',                stats: { maxHpBonus: 85, damageReduction: 3, critBonus: 0.08 } },
+  { id: 'death-crown',      name: 'Death Crown',         icon: '💀', slot: 'head',     tier: 6, cost: 1400, desc: '+120 max HP, -4 dmg taken, +12% crit',              stats: { maxHpBonus: 120, damageReduction: 4, critBonus: 0.12 } },
+
+  // ── CHEST ─────────────────────────────────────────────────────────────────
+  { id: 'leather-tunic',    name: 'Leather Tunic',       icon: '👕', slot: 'chest',    tier: 1, cost: 60,   desc: '-1 damage taken',                                   stats: { damageReduction: 1 } },
+  { id: 'chain-mail',       name: 'Chain Mail',          icon: '🧥', slot: 'chest',    tier: 2, cost: 150,  desc: '+20 max HP, -2 dmg taken',                          stats: { maxHpBonus: 20, damageReduction: 2 } },
+  { id: 'brigandine',       name: 'Brigandine',          icon: '🥋', slot: 'chest',    tier: 3, cost: 310,  desc: '+40 max HP, -3 dmg taken',                          stats: { maxHpBonus: 40, damageReduction: 3 } },
+  { id: 'knights-hauberk',  name: "Knight's Hauberk",    icon: '🧥', slot: 'chest',    tier: 4, cost: 550,  desc: '+65 max HP, -4 dmg taken',                          stats: { maxHpBonus: 65, damageReduction: 4 } },
+  { id: 'dragon-hide',      name: 'Dragon Hide',         icon: '🐉', slot: 'chest',    tier: 5, cost: 920,  desc: '+95 max HP, -5 dmg taken',                          stats: { maxHpBonus: 95, damageReduction: 5 } },
+  { id: 'plate-armor',      name: 'Plate Armor',         icon: '🛡️', slot: 'chest',    tier: 6, cost: 1600, desc: '+140 max HP, -7 dmg taken',                         stats: { maxHpBonus: 140, damageReduction: 7 } },
+
+  // ── GLOVES ────────────────────────────────────────────────────────────────
+  { id: 'leather-wraps',    name: 'Leather Wraps',       icon: '🥊', slot: 'gloves',   tier: 1, cost: 40,   desc: '+2 dmg',                                            stats: { dmgBonus: 2 } },
+  { id: 'iron-gauntlets',   name: 'Iron Gauntlets',      icon: '🤜', slot: 'gloves',   tier: 2, cost: 105,  desc: '+5 dmg, +2% crit',                                  stats: { dmgBonus: 5, critBonus: 0.02 } },
+  { id: 'battle-mitts',     name: 'Battle Mitts',        icon: '🥊', slot: 'gloves',   tier: 3, cost: 230,  desc: '+9 dmg, +4% crit',                                  stats: { dmgBonus: 9, critBonus: 0.04 } },
+  { id: 'shadow-claws',     name: 'Shadow Claws',        icon: '🐾', slot: 'gloves',   tier: 4, cost: 430,  desc: '+14 dmg, +6% crit',                                 stats: { dmgBonus: 14, critBonus: 0.06 } },
+  { id: 'berserker-fists',  name: 'Berserker Fists',     icon: '💪', slot: 'gloves',   tier: 5, cost: 730,  desc: '+20 dmg, +9% crit',                                 stats: { dmgBonus: 20, critBonus: 0.09 } },
+  { id: 'deathgrip',        name: 'Deathgrip',           icon: '👊', slot: 'gloves',   tier: 6, cost: 1250, desc: '+30 dmg, +12% crit',                                stats: { dmgBonus: 30, critBonus: 0.12 } },
+
+  // ── TROUSERS ──────────────────────────────────────────────────────────────
+  { id: 'leather-legs',     name: 'Leather Leggings',    icon: '👖', slot: 'trousers', tier: 1, cost: 45,   desc: '+10 max HP, 5% dodge',                              stats: { maxHpBonus: 10, dodgeChance: 0.05 } },
+  { id: 'chain-legs',       name: 'Chain Leggings',      icon: '⛓️', slot: 'trousers', tier: 2, cost: 115,  desc: '+25 max HP, 10% dodge',                             stats: { maxHpBonus: 25, dodgeChance: 0.10 } },
+  { id: 'shadow-wraps',     name: 'Shadow Wraps',        icon: '🌫️', slot: 'trousers', tier: 3, cost: 250,  desc: '+40 max HP, 15% dodge',                             stats: { maxHpBonus: 40, dodgeChance: 0.15 } },
+  { id: 'phantom-legs',     name: 'Phantom Leggings',    icon: '👻', slot: 'trousers', tier: 4, cost: 460,  desc: '+55 max HP, 20% dodge',                             stats: { maxHpBonus: 55, dodgeChance: 0.20 } },
+  { id: 'specter-trousers', name: 'Specter Trousers',    icon: '🌑', slot: 'trousers', tier: 5, cost: 770,  desc: '+75 max HP, 26% dodge',                             stats: { maxHpBonus: 75, dodgeChance: 0.26 } },
+  { id: 'wraithform',       name: 'Wraithform',          icon: '💨', slot: 'trousers', tier: 6, cost: 1350, desc: '+100 max HP, 32% dodge',                            stats: { maxHpBonus: 100, dodgeChance: 0.32 } },
+
+  // ── GREAVES ───────────────────────────────────────────────────────────────
+  { id: 'leather-boots',    name: 'Leather Boots',       icon: '👟', slot: 'greaves',  tier: 1, cost: 45,   desc: 'Monster attacks 200ms slower',                      stats: { attackIntervalBonus: 200 } },
+  { id: 'iron-boots',       name: 'Iron Boots',          icon: '🥾', slot: 'greaves',  tier: 2, cost: 115,  desc: '+1 dmg, 400ms slower',                              stats: { dmgBonus: 1, attackIntervalBonus: 400 } },
+  { id: 'steel-greaves',    name: 'Steel Greaves',       icon: '👢', slot: 'greaves',  tier: 3, cost: 255,  desc: '+3 dmg, 650ms slower',                              stats: { dmgBonus: 3, attackIntervalBonus: 650 } },
+  { id: 'swift-greaves',    name: 'Swift Greaves',       icon: '⚡', slot: 'greaves',  tier: 4, cost: 470,  desc: '+6 dmg, 900ms slower',                              stats: { dmgBonus: 6, attackIntervalBonus: 900 } },
+  { id: 'windwalker',       name: 'Windwalker',          icon: '🌪️', slot: 'greaves',  tier: 5, cost: 800,  desc: '+10 dmg, 1200ms slower',                            stats: { dmgBonus: 10, attackIntervalBonus: 1200 } },
+  { id: 'phantom-striders', name: 'Phantom Striders',    icon: '👣', slot: 'greaves',  tier: 6, cost: 1400, desc: '+15 dmg, 1600ms slower',                            stats: { dmgBonus: 15, attackIntervalBonus: 1600 } },
+
+  // ── SHIELD ────────────────────────────────────────────────────────────────
+  { id: 'wooden-shield',    name: 'Wooden Shield',       icon: '🪵', slot: 'shield',   tier: 1, cost: 55,   desc: 'Block 2 damage per hit',                            stats: { block: 2 } },
+  { id: 'iron-shield',      name: 'Iron Shield',         icon: '🛡️', slot: 'shield',   tier: 2, cost: 140,  desc: 'Block 4 damage per hit',                            stats: { block: 4 } },
+  { id: 'tower-shield',     name: 'Tower Shield',        icon: '🏰', slot: 'shield',   tier: 3, cost: 290,  desc: '+10 max HP, block 6 damage',                        stats: { maxHpBonus: 10, block: 6 } },
+  { id: 'spiked-shield',    name: 'Spiked Shield',       icon: '⚔️', slot: 'shield',   tier: 4, cost: 520,  desc: 'Block 7, reflect 3 dmg to attacker',               stats: { block: 7, reflectDamage: 3 } },
+  { id: 'runed-bulwark',    name: 'Runed Bulwark',       icon: '🔮', slot: 'shield',   tier: 5, cost: 880,  desc: 'Block 9, reflect 5 dmg to attacker',               stats: { block: 9, reflectDamage: 5 } },
+  { id: 'aegis',            name: 'Aegis of the Slayer', icon: '✨', slot: 'shield',   tier: 6, cost: 1600, desc: 'Block 12, reflect 8 dmg to attacker',              stats: { block: 12, reflectDamage: 8 } },
+];
+
 /* ===== UPGRADE POOL ===== */
 const UPGRADE_POOL = {
   common: [
@@ -158,7 +227,8 @@ function freshState() {
       data: null,
     },
 
-    shopPurchases: {},   // id -> count of times purchased
+    shopPurchases: {},
+    equippedArmor: { weapon: null, head: null, chest: null, gloves: null, trousers: null, greaves: null, shield: null },
 
     stats: {
       totalClicks: 0,
@@ -177,11 +247,13 @@ let state = freshState();
 const $ = id => document.getElementById(id);
 
 const screens = {
-  title:   $('screen-title'),
-  game:    $('screen-game'),
-  upgrade: $('screen-upgrade'),
-  shop:    $('screen-shop'),
-  stats:   $('screen-stats'),
+  title:       $('screen-title'),
+  game:        $('screen-game'),
+  upgrade:     $('screen-upgrade'),
+  shop:        $('screen-shop'),
+  armory:      $('screen-armory'),
+  stats:       $('screen-stats'),
+  leaderboard: $('screen-leaderboard'),
 };
 
 const el = {
@@ -208,6 +280,14 @@ const el = {
   playerHpText:     $('player-hp-text'),
   playerHitFlash:   $('player-hit-flash'),
   canvas:           $('particle-canvas'),
+  nameInput:        $('name-input'),
+  nameError:        $('name-error'),
+  leaderboardList:  $('leaderboard-list'),
+  armoryGoldNum:    $('armory-gold-num'),
+  armorSlotsGrid:   $('armor-slots-grid'),
+  armorItemPicker:  $('armor-item-picker'),
+  armorPickerTitle: $('armor-picker-title'),
+  armorPickerItems: $('armor-picker-items'),
 };
 
 /* ===== UTILITIES ===== */
@@ -228,6 +308,20 @@ function clamp(v, lo, hi) {
 
 function delay(ms) {
   return new Promise(r => setTimeout(r, ms));
+}
+
+/* ===== ARMOR STATS ===== */
+function getArmorStats() {
+  const totals = { maxHpBonus: 0, dmgBonus: 0, critBonus: 0, critMultBonus: 0, damageReduction: 0, block: 0, dodgeChance: 0, attackIntervalBonus: 0, reflectDamage: 0, killHealPct: 0 };
+  for (const itemId of Object.values(state.equippedArmor)) {
+    if (!itemId) continue;
+    const item = ARMOR_CATALOG.find(a => a.id === itemId);
+    if (!item) continue;
+    for (const [k, v] of Object.entries(item.stats)) {
+      if (k in totals) totals[k] += v;
+    }
+  }
+  return totals;
 }
 
 /* ===== SCREEN MANAGEMENT ===== */
@@ -305,10 +399,11 @@ function startParticleLoop() {
 
 /* ===== HUD UPDATE ===== */
 function updateHUD() {
+  const armor = getArmorStats();
   el.levelNum.textContent  = state.level;
   el.goldNum.textContent   = formatNum(state.gold);
-  el.dmgNum.textContent    = state.player.damage;
-  el.critNum.textContent   = Math.floor(clamp(state.player.critChance * 100, 0, 50));
+  el.dmgNum.textContent    = state.player.damage + armor.dmgBonus;
+  el.critNum.textContent   = Math.floor(clamp((state.player.critChance + armor.critBonus) * 100, 0, 50));
   updatePlayerHPBar();
 }
 
@@ -458,14 +553,20 @@ function calcMonsterDamage(level, isBoss) {
 
 function calcMonsterAttackInterval(level, isBoss) {
   const ms = Math.max(900, 2200 - level * 30);
-  return isBoss ? Math.max(1000, ms - 200) : ms;
+  const base = isBoss ? Math.max(1000, ms - 200) : ms;
+  return base + getArmorStats().attackIntervalBonus;
 }
 
 /* ===== PLAYER HP ===== */
+function effectiveMaxHp() {
+  return state.player.maxHp + getArmorStats().maxHpBonus;
+}
+
 function updatePlayerHPBar() {
-  const pct = clamp(state.player.hp / state.player.maxHp * 100, 0, 100);
+  const maxHp = effectiveMaxHp();
+  const pct = clamp(state.player.hp / maxHp * 100, 0, 100);
   el.playerHpBarInner.style.width = pct + '%';
-  el.playerHpText.textContent = Math.ceil(state.player.hp) + ' / ' + state.player.maxHp;
+  el.playerHpText.textContent = Math.ceil(state.player.hp) + ' / ' + maxHp;
   if (pct < 25) {
     el.playerHpBarInner.style.background = 'linear-gradient(90deg, #550000, #880000)';
   } else if (pct < 50) {
@@ -481,9 +582,45 @@ function doPlayerHitFlash() {
   el.playerHitFlash.classList.add('active');
 }
 
+function spawnDodgeText() {
+  const rect = el.monsterWrap.getBoundingClientRect();
+  const wrapRect = el.gameWrap.getBoundingClientRect();
+  const x = rect.left + rect.width / 2 - wrapRect.left;
+  const y = rect.bottom - wrapRect.top;
+  const div = document.createElement('div');
+  div.className = 'dodge-text';
+  div.textContent = 'DODGE!';
+  div.style.left = x + 'px';
+  div.style.top  = y + 'px';
+  el.damageLayer.appendChild(div);
+  setTimeout(() => { if (div.parentNode) div.parentNode.removeChild(div); }, 750);
+}
+
 function playerTakeDamage(amount) {
   if (state.playerClickLocked || state.screen !== 'game') return;
-  state.player.hp = Math.max(0, state.player.hp - amount);
+  const armor = getArmorStats();
+
+  // Dodge
+  if (armor.dodgeChance > 0 && Math.random() < armor.dodgeChance) {
+    spawnDodgeText();
+    return;
+  }
+
+  // Damage reduction + block (minimum 1)
+  const reduced = Math.max(1, amount - armor.damageReduction - armor.block);
+  state.player.hp = Math.max(0, state.player.hp - reduced);
+
+  // Reflect damage back
+  if (armor.reflectDamage > 0 && state.monster.hp > 0) {
+    state.monster.hp = Math.max(0, state.monster.hp - armor.reflectDamage);
+    updateHPBar();
+    if (state.monster.hp <= 0) {
+      state.playerClickLocked = true;
+      killMonster().then(() => { state.playerClickLocked = false; });
+      return;
+    }
+  }
+
   updatePlayerHPBar();
   doPlayerHitFlash();
   if (state.player.hp <= 0) {
@@ -550,9 +687,10 @@ function spawnMonster(animate) {
 
 /* ===== COMPUTE DAMAGE ===== */
 function computeHit() {
-  let dmg = state.player.damage;
-  const isCrit = Math.random() < Math.min(0.5, state.player.critChance);
-  if (isCrit) dmg = Math.floor(dmg * state.player.critMult);
+  const armor = getArmorStats();
+  let dmg = state.player.damage + armor.dmgBonus;
+  const isCrit = Math.random() < Math.min(0.5, state.player.critChance + armor.critBonus);
+  if (isCrit) dmg = Math.floor(dmg * (state.player.critMult + armor.critMultBonus));
 
   // Soul Harvest bonus
   dmg += state.player.soulHarvestBonus;
@@ -578,6 +716,14 @@ async function killMonster() {
   // Soul Harvest charge from kills
   if (state.player.soulHarvest) {
     state.player.soulHarvestBonus += Math.floor(state.monster.maxHp * 0.01);
+  }
+
+  // Kill heal from weapon (e.g. Soul Reaper)
+  const armorOnKill = getArmorStats();
+  if (armorOnKill.killHealPct > 0) {
+    const healAmt = Math.floor(effectiveMaxHp() * armorOnKill.killHealPct);
+    state.player.hp = Math.min(effectiveMaxHp(), state.player.hp + healAmt);
+    updatePlayerHPBar();
   }
 
   updateHUD();
@@ -633,8 +779,9 @@ async function handleMonsterHit(clientX, clientY) {
 async function levelComplete() {
   state.playerClickLocked = true;
   // Heal 30% of max HP on level complete
-  const heal = Math.floor(state.player.maxHp * 0.30);
-  state.player.hp = Math.min(state.player.maxHp, state.player.hp + heal);
+  const maxHp = effectiveMaxHp();
+  const heal = Math.floor(maxHp * 0.30);
+  state.player.hp = Math.min(maxHp, state.player.hp + heal);
   updatePlayerHPBar();
   await showBanner('Level Complete!  ❤️ +' + heal, 1400);
   showUpgradeScreen();
@@ -840,6 +987,7 @@ function openShop() {
 
 /* ===== STATS SCREEN ===== */
 function showStatsScreen() {
+  saveScore();
   const s = state.stats;
   const rows = [
     ['Levels Reached',  s.levelsReached],
@@ -860,6 +1008,141 @@ function showStatsScreen() {
   showScreen('stats');
 }
 
+/* ===== ARMORY ===== */
+function renderArmorSlots() {
+  el.armorSlotsGrid.innerHTML = '';
+  for (const [slot, meta] of Object.entries(SLOT_META)) {
+    const equippedId = state.equippedArmor[slot];
+    const equippedItem = equippedId ? ARMOR_CATALOG.find(a => a.id === equippedId) : null;
+
+    const card = document.createElement('div');
+    card.className = 'armor-slot-card' + (equippedItem ? ' is-equipped' : '');
+    card.innerHTML = `
+      <div class="armor-slot-icon">${meta.icon}</div>
+      <div class="armor-slot-info">
+        <div class="armor-slot-label">${meta.label}</div>
+        <div class="armor-slot-name ${equippedItem ? '' : 'empty'}">${equippedItem ? equippedItem.name : 'Empty'}</div>
+      </div>
+    `;
+    card.addEventListener('click', () => showArmorPicker(slot));
+    card.addEventListener('touchstart', e => { e.preventDefault(); showArmorPicker(slot); }, { passive: false });
+    el.armorSlotsGrid.appendChild(card);
+  }
+}
+
+function showArmorPicker(slot) {
+  const meta = SLOT_META[slot];
+  el.armorPickerTitle.textContent = meta.label + ' Armor';
+  el.armorPickerItems.innerHTML = '';
+
+  const items = ARMOR_CATALOG.filter(a => a.slot === slot);
+  items.forEach(item => {
+    const isEquipped = state.equippedArmor[slot] === item.id;
+    const canAfford = state.gold >= item.cost;
+
+    const div = document.createElement('div');
+    div.className = 'armor-picker-item'
+      + (isEquipped ? ' is-equipped' : '')
+      + (!isEquipped && !canAfford ? ' cant-afford' : '');
+
+    div.innerHTML = `
+      <div class="armor-picker-icon">${item.icon}</div>
+      <div class="armor-picker-info">
+        <div class="armor-picker-name">${item.name}</div>
+        <div class="armor-picker-desc">${item.desc}</div>
+      </div>
+      <div class="armor-picker-price ${isEquipped ? 'equipped-label' : ''}">
+        ${isEquipped ? '✓ Equipped' : '🪙 ' + formatNum(item.cost)}
+      </div>
+    `;
+
+    if (!isEquipped) {
+      div.addEventListener('click', () => onBuyArmor(item, slot));
+      div.addEventListener('touchstart', e => { e.preventDefault(); onBuyArmor(item, slot); }, { passive: false });
+    }
+    el.armorPickerItems.appendChild(div);
+  });
+
+  el.armorSlotsGrid.classList.add('hidden');
+  el.armorItemPicker.classList.remove('hidden');
+}
+
+function onBuyArmor(item, slot) {
+  if (state.gold < item.cost) return;
+  state.gold -= item.cost;
+  state.equippedArmor[slot] = item.id;
+
+  // Cap HP at new effective max
+  state.player.hp = Math.min(state.player.hp, effectiveMaxHp());
+
+  // Restart attack timer (interval may have changed from greaves)
+  if (state.monsterAttackTimer) startMonsterAttackTimer();
+
+  updateHUD();
+  el.armoryGoldNum.textContent = formatNum(state.gold);
+  showArmorPicker(slot); // refresh picker
+}
+
+function openArmory() {
+  el.armoryGoldNum.textContent = formatNum(state.gold);
+  el.armorItemPicker.classList.add('hidden');
+  el.armorSlotsGrid.classList.remove('hidden');
+  renderArmorSlots();
+  showScreen('armory');
+}
+
+/* ===== LEADERBOARD ===== */
+const LB_KEY = 'tapslayer_scores';
+const LB_MAX = 10;
+
+function loadLeaderboard() {
+  try {
+    const raw = localStorage.getItem(LB_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function saveScore() {
+  const name  = (el.nameInput.value || '').trim() || 'Unknown';
+  const entry = {
+    name,
+    level: state.stats.levelsReached,
+    date:  new Date().toLocaleDateString(),
+  };
+  const scores = loadLeaderboard();
+  scores.push(entry);
+  scores.sort((a, b) => b.level - a.level);
+  try { localStorage.setItem(LB_KEY, JSON.stringify(scores.slice(0, LB_MAX))); } catch { /* ignore */ }
+}
+
+function showLeaderboardScreen(returnTo) {
+  const scores = loadLeaderboard();
+  el.leaderboardList.innerHTML = '';
+
+  if (scores.length === 0) {
+    el.leaderboardList.innerHTML = '<div class="lb-empty">No records yet. Be the first!</div>';
+  } else {
+    const medals = ['🥇', '🥈', '🥉'];
+    scores.forEach((entry, i) => {
+      const row = document.createElement('div');
+      row.className = 'lb-row';
+      const rankHtml = i < 3
+        ? `<div class="lb-rank">${medals[i]}</div>`
+        : `<div class="lb-rank numbered">${i + 1}.</div>`;
+      row.innerHTML = `
+        ${rankHtml}
+        <div class="lb-name">${entry.name}</div>
+        <div class="lb-level">Lvl ${entry.level}</div>
+        <div class="lb-date">${entry.date}</div>
+      `;
+      el.leaderboardList.appendChild(row);
+    });
+  }
+
+  $('btn-leaderboard-close').onclick = () => showScreen(returnTo || 'title');
+  showScreen('leaderboard');
+}
+
 /* ===== RESIZE HANDLER ===== */
 function onResize() {
   canvas.width  = canvas.offsetWidth  || window.innerWidth;
@@ -872,14 +1155,48 @@ function onResize() {
 
 /* ===== EVENT SETUP ===== */
 function setupEvents() {
-  // Start button
+  // Start button — validate name first
   $('btn-start').addEventListener('click', () => {
+    const name = el.nameInput.value.trim();
+    if (!name) {
+      el.nameError.classList.remove('hidden');
+      el.nameInput.focus();
+      return;
+    }
+    el.nameError.classList.add('hidden');
     state = freshState();
     startLevel(1);
   });
 
-  // Retire button
-  $('btn-retire').addEventListener('click', showStatsScreen);
+  // Name input — clear error on typing, start on Enter
+  el.nameInput.addEventListener('input', () => {
+    if (el.nameInput.value.trim()) el.nameError.classList.add('hidden');
+  });
+  el.nameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') $('btn-start').click();
+  });
+
+  // Title leaderboard button
+  $('btn-title-leaderboard').addEventListener('click', () => showLeaderboardScreen('title'));
+
+  // Retire button — stop attack timer, save score, show stats
+  $('btn-retire').addEventListener('click', () => {
+    stopMonsterAttackTimer();
+    showStatsScreen();
+  });
+
+  // Armory button
+  $('btn-armory').addEventListener('click', openArmory);
+
+  // Armory close
+  $('btn-armory-close').addEventListener('click', () => showScreen('game'));
+
+  // Armory back to slots
+  $('btn-armor-back').addEventListener('click', () => {
+    el.armorItemPicker.classList.add('hidden');
+    el.armorSlotsGrid.classList.remove('hidden');
+    renderArmorSlots();
+  });
 
   // Shop button
   $('btn-shop').addEventListener('click', openShop);
@@ -887,11 +1204,11 @@ function setupEvents() {
   // Shop close
   $('btn-shop-close').addEventListener('click', () => showScreen('game'));
 
-  // Play Again
-  $('btn-play-again').addEventListener('click', () => {
-    state = freshState();
-    startLevel(1);
-  });
+  // Play Again — return to title
+  $('btn-play-again').addEventListener('click', () => showScreen('title'));
+
+  // Stats leaderboard button
+  $('btn-stats-leaderboard').addEventListener('click', () => showLeaderboardScreen('stats'));
 
   // Monster tap — mouse
   el.monsterWrap.addEventListener('click', e => {

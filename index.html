@@ -18,7 +18,10 @@
       <div class="title-content">
         <h1 class="gothic-title">TapSlayer</h1>
         <p class="title-subtitle">Dark Fantasy · Tap to Slay</p>
-        <button id="btn-start" class="btn-primary">Tap to Begin</button>
+        <input id="name-input" type="text" maxlength="16" placeholder="Enter your name…" autocomplete="off" spellcheck="false" />
+        <p id="name-error" class="name-error hidden">Please enter your name first</p>
+        <button id="btn-start" class="btn-primary">Begin</button>
+        <button id="btn-title-leaderboard" class="btn-retire">🏆 Leaderboard</button>
       </div>
     </div>
 
@@ -58,6 +61,7 @@
       <div id="hud-bottom">
         <span class="hud-label">DMG: <span id="dmg-num">1</span></span>
         <span class="hud-label">CRIT: <span id="crit-num">5</span>%</span>
+        <button id="btn-armory" class="btn-shop">⚔️ Armor</button>
         <button id="btn-shop" class="btn-shop">🛒 Shop</button>
       </div>
     </div>
@@ -68,6 +72,19 @@
       <p id="shop-gold-display" class="shop-gold-display">🪙 <span id="shop-gold-num">0</span></p>
       <div id="shop-items"></div>
       <button id="btn-shop-close" class="btn-primary" style="margin-top:1rem;">Return to Battle</button>
+    </div>
+
+    <!-- ARMORY SCREEN -->
+    <div id="screen-armory" class="screen hidden">
+      <h2 class="gothic-heading">Armory</h2>
+      <p class="shop-gold-display">🪙 <span id="armory-gold-num">0</span></p>
+      <div id="armor-slots-grid"></div>
+      <div id="armor-item-picker" class="hidden">
+        <button id="btn-armor-back" class="btn-retire" style="align-self:flex-start;">← Back to Slots</button>
+        <div id="armor-picker-title" class="armor-picker-title"></div>
+        <div id="armor-picker-items"></div>
+      </div>
+      <button id="btn-armory-close" class="btn-primary" style="margin-top:1rem;">Return to Battle</button>
     </div>
 
     <!-- UPGRADE SCREEN -->
@@ -82,6 +99,16 @@
         <h2 class="gothic-heading">Run Complete</h2>
         <div id="stats-list"></div>
         <button id="btn-play-again" class="btn-primary">Play Again</button>
+        <button id="btn-stats-leaderboard" class="btn-retire">🏆 Leaderboard</button>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD SCREEN -->
+    <div id="screen-leaderboard" class="screen hidden">
+      <div class="leaderboard-content">
+        <h2 class="gothic-heading">Hall of Slayers</h2>
+        <div id="leaderboard-list"></div>
+        <button id="btn-leaderboard-close" class="btn-primary">Back</button>
       </div>
     </div>
 
