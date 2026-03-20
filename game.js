@@ -385,6 +385,203 @@ function delay(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+/* ===== SOUND SYSTEM ===== */
+let _audioCtx    = null;
+let _masterGain  = null;
+let soundEnabled = true;
+const MASTER_VOL = 0.28;
+
+function _audio() {
+  if (!_audioCtx) {
+    _audioCtx    = new (window.AudioContext || window.webkitAudioContext)();
+    _masterGain  = _audioCtx.createGain();
+    _masterGain.gain.value = MASTER_VOL;
+    _masterGain.connect(_audioCtx.destination);
+  }
+  if (_audioCtx.state === 'suspended') _audioCtx.resume();
+  return _audioCtx;
+}
+
+function _dst() { return _masterGain; }
+
+function _tone(freq, dur, type = 'sine', vol = 0.25, at = null) {
+  const ctx = _audio(); const t = at ?? ctx.currentTime;
+  const osc = ctx.createOscillator(), g = ctx.createGain();
+  osc.type = type; osc.frequency.setValueAtTime(freq, t);
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  osc.connect(g); g.connect(_dst());
+  osc.start(t); osc.stop(t + dur + 0.02);
+}
+
+function _noise(dur, filterFreq, filterType = 'lowpass', vol = 0.25, at = null) {
+  const ctx = _audio(); const t = at ?? ctx.currentTime;
+  const size = Math.ceil(ctx.sampleRate * dur);
+  const buf  = ctx.createBuffer(1, size, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < size; i++) data[i] = Math.random() * 2 - 1;
+  const src  = ctx.createBufferSource();
+  src.buffer = buf;
+  const filt = ctx.createBiquadFilter();
+  filt.type = filterType; filt.frequency.value = filterFreq;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  src.connect(filt); filt.connect(g); g.connect(_dst());
+  src.start(t); src.stop(t + dur + 0.02);
+}
+
+const SFX = {
+  hit() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(130, t);
+    osc.frequency.exponentialRampToValueAtTime(45, t + 0.07);
+    g.gain.setValueAtTime(0.32, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+    osc.connect(g); g.connect(_dst());
+    osc.start(t); osc.stop(t + 0.09);
+  },
+
+  crit() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _noise(0.04, 3500, 'highpass', 0.38, t);
+    _tone(900, 0.14, 'sine', 0.2, t + 0.02);
+    _tone(1350, 0.1, 'sine', 0.12, t + 0.04);
+  },
+
+  kill() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(180, t);
+    osc.frequency.exponentialRampToValueAtTime(40, t + 0.14);
+    g.gain.setValueAtTime(0.38, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+    osc.connect(g); g.connect(_dst());
+    osc.start(t); osc.stop(t + 0.15);
+    _tone(660, 0.22, 'sine', 0.14, t + 0.06);
+  },
+
+  levelComplete() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    [523, 659, 784, 1047].forEach((f, i) => _tone(f, 0.28, 'sine', 0.22, t + i * 0.13));
+  },
+
+  boss() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const lfo = ctx.createOscillator();
+    const lfoG = ctx.createGain(), g = ctx.createGain();
+    osc.type = 'sawtooth'; osc.frequency.value = 55;
+    lfo.type = 'sine';     lfo.frequency.value = 5;
+    lfoG.gain.value = 0.12;
+    g.gain.setValueAtTime(0.001, t);
+    g.gain.linearRampToValueAtTime(0.3, t + 0.4);
+    g.gain.linearRampToValueAtTime(0.001, t + 2.0);
+    lfo.connect(lfoG); lfoG.connect(g.gain);
+    osc.connect(g); g.connect(_dst());
+    lfo.start(t); osc.start(t);
+    lfo.stop(t + 2.1); osc.stop(t + 2.1);
+    _tone(110, 1.5, 'sine', 0.12, t + 0.1);
+  },
+
+  buy() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _tone(1320, 0.08, 'sine', 0.22, t);
+    _tone(1760, 0.12, 'sine', 0.18, t + 0.07);
+  },
+
+  evolve() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    [440, 554, 659, 880, 1108, 1320].forEach((f, i) =>
+      _tone(f, 0.2, 'sine', 0.16, t + i * 0.07));
+  },
+
+  gameOver() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    [440, 392, 349, 294, 220].forEach((f, i) =>
+      _tone(f, 0.4, 'sawtooth', 0.18, t + i * 0.2));
+  },
+
+  freeze() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _noise(0.15, 5000, 'highpass', 0.32, t);
+    [2093, 2637, 3136].forEach((f, i) => _tone(f, 0.14, 'sine', 0.1, t + i * 0.045));
+  },
+
+  shadowCombo() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(280, t);
+    osc.frequency.exponentialRampToValueAtTime(55, t + 0.22);
+    g.gain.setValueAtTime(0.28, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    osc.connect(g); g.connect(_dst());
+    osc.start(t); osc.stop(t + 0.24);
+  },
+
+  familiarFire() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _noise(0.1, 900, 'bandpass', 0.18, t);
+    _tone(220, 0.09, 'sawtooth', 0.09, t);
+  },
+
+  familiarDark() {
+    if (!soundEnabled) return;
+    _tone(75, 0.13, 'square', 0.22);
+  },
+
+  familiarEarth() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _noise(0.06, 350, 'lowpass', 0.28, t);
+    _tone(160, 0.08, 'triangle', 0.18, t);
+  },
+
+  familiarPoison() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _tone(190, 0.14, 'sine', 0.13, t);
+    _tone(285, 0.1, 'sine', 0.09, t + 0.06);
+  },
+
+  familiarIce() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    _tone(1760, 0.07, 'sine', 0.11, t);
+    _tone(2349, 0.06, 'sine', 0.09, t + 0.04);
+  },
+};
+
+const FAM_SFX = {
+  ember_wisp:     'familiarFire',
+  shadow_pup:     'familiarDark',
+  crystal_beetle: 'familiarEarth',
+  plague_rat:     'familiarPoison',
+  frost_wraith:   'familiarIce',
+};
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  if (_masterGain) _masterGain.gain.value = soundEnabled ? MASTER_VOL : 0;
+  const btn = $('btn-sound');
+  if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+}
+
 /* ===== FAMILIAR HELPERS ===== */
 function getActiveFamiliarDef() {
   return state.familiars.activeId ? FAMILIARS[state.familiars.activeId] : null;
@@ -498,6 +695,7 @@ function familiarAutoAttack() {
   }
 
   spawnFamiliarProjectile(def.color);
+  const _sfxKey = FAM_SFX[def.id]; if (_sfxKey && SFX[_sfxKey]) SFX[_sfxKey]();
   applyFamiliarSkill(def, sd);
 
   state.monster.hp = Math.max(0, state.monster.hp - dmg);
@@ -530,6 +728,7 @@ function applyFamiliarSkill(def, sd) {
       const burst = skill.freezeBurst;
       state.monster.hp = Math.max(0, state.monster.hp - burst);
       spawnFamiliarDamageNumber(burst, def.color, true);
+      SFX.freeze();
       showFreezeEffect();
       fc.chillStacks = 0;
       // Stun monster and apply click bonus during window
@@ -780,6 +979,7 @@ function onEvolveFamiliar(id) {
   if (!owned) return;
   const nextSd = FAMILIARS[id].stages[owned.stage];
   if (!nextSd || !nextSd.evolveCost || state.gold < nextSd.evolveCost) return;
+  SFX.evolve();
   state.gold -= nextSd.evolveCost;
   owned.stage++;
   if (state.familiars.activeId === id) {
@@ -955,6 +1155,7 @@ async function showBanner(text, durationMs) {
 
 /* ===== BOSS WARNING ===== */
 async function showBossWarning() {
+  SFX.boss();
   el.bossWarning.classList.remove('hidden');
   el.bossWarning.classList.add('active');
   await delay(1500);
@@ -1135,6 +1336,7 @@ function stopMonsterAttackTimer() {
 }
 
 async function gameOver() {
+  SFX.gameOver();
   state.playerClickLocked = true;
   stopMonsterAttackTimer();
   await showBanner('You Died...', 1600);
@@ -1227,6 +1429,7 @@ function computeHit() {
 
 /* ===== KILL MONSTER ===== */
 async function killMonster() {
+  SFX.kill();
   stopMonsterAttackTimer();
   state.kills++;
 
@@ -1300,7 +1503,7 @@ async function handleMonsterHit(clientX, clientY) {
   if (isCrit) state.stats.totalCrits++;
 
   spawnDamageNumber(dmg, isCrit, clientX, clientY);
-  if (isCrit) doScreenShake();
+  if (isCrit) { SFX.crit(); doScreenShake(); } else { SFX.hit(); }
 
   state.monster.hp = Math.max(0, state.monster.hp - dmg);
   updateHPBar();
@@ -1323,6 +1526,7 @@ async function handleMonsterHit(clientX, clientY) {
         state.familiarCombat.clicksSinceShadowProc = 0;
         const comboDmg = Math.floor(sd.dps * sd.skill.comboDamageMult);
         state.monster.hp = Math.max(0, state.monster.hp - comboDmg);
+        SFX.shadowCombo();
         spawnFamiliarDamageNumber(comboDmg, '#9933ff', true);
         updateHPBar();
         if (sd.skill.frenzyDuration > 0) {
@@ -1345,6 +1549,7 @@ async function handleMonsterHit(clientX, clientY) {
 
 /* ===== LEVEL COMPLETE ===== */
 async function levelComplete() {
+  SFX.levelComplete();
   state.playerClickLocked = true;
   // Heal 30% of max HP on level complete
   const maxHp = effectiveMaxHp();
@@ -1524,7 +1729,7 @@ function renderShop() {
 async function onBuyItem(item) {
   const cost = shopItemCost(item);
   if (state.gold < cost) return;
-
+  SFX.buy();
   state.gold -= cost;
   state.shopPurchases[item.id] = (state.shopPurchases[item.id] || 0) + 1;
 
@@ -1777,6 +1982,9 @@ function setupEvents() {
   el.nameInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') $('btn-start').click();
   });
+
+  // Sound toggle
+  $('btn-sound').addEventListener('click', toggleSound);
 
   // Title leaderboard button
   $('btn-title-leaderboard').addEventListener('click', () => showLeaderboardScreen('title'));
