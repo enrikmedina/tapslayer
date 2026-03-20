@@ -191,6 +191,60 @@ const UPGRADE_POOL = {
   ],
 };
 
+/* ===== FAMILIARS DATA ===== */
+const FAMILIARS = {
+  ember_wisp: {
+    id: 'ember_wisp', element: 'fire', color: '#ff6600',
+    icons: ['🔥', '✨', '😈', '🦅'],
+    stages: [
+      { name: 'Ember Wisp',       dps:  2, interval: 2.0, unlockCost: 100,  evolveCost: null,  skill: { burnDPS:  1, burnDuration: 3, canCrit: false } },
+      { name: 'Flame Sprite',     dps:  5, interval: 1.8, unlockCost: null,  evolveCost: 500,   skill: { burnDPS:  3, burnDuration: 3, canCrit: false } },
+      { name: 'Inferno Imp',      dps: 12, interval: 1.5, unlockCost: null,  evolveCost: 2000,  skill: { burnDPS:  7, burnDuration: 4, canCrit: false } },
+      { name: 'Hellfire Phoenix', dps: 30, interval: 1.2, unlockCost: null,  evolveCost: 8000,  skill: { burnDPS: 15, burnDuration: 5, canCrit: true  } },
+    ],
+  },
+  shadow_pup: {
+    id: 'shadow_pup', element: 'dark', color: '#9933ff',
+    icons: ['🐾', '🐺', '👻', '🌑'],
+    stages: [
+      { name: 'Shadow Pup',   dps:  1, interval: 2.5, unlockCost: 100,  evolveCost: null,  skill: { bonusClickDamage:  1, freeAttackEveryN: null } },
+      { name: 'Shade Hound',  dps:  3, interval: 2.2, unlockCost: null,  evolveCost: 500,   skill: { bonusClickDamage:  3, freeAttackEveryN: null } },
+      { name: 'Phantom Wolf', dps:  8, interval: 1.8, unlockCost: null,  evolveCost: 2000,  skill: { bonusClickDamage:  7, freeAttackEveryN: null } },
+      { name: 'Void Fenrir',  dps: 20, interval: 1.5, unlockCost: null,  evolveCost: 8000,  skill: { bonusClickDamage: 15, freeAttackEveryN: 5    } },
+    ],
+  },
+  crystal_beetle: {
+    id: 'crystal_beetle', element: 'earth', color: '#00cccc',
+    icons: ['🪲', '💎', '🗿', '⬛'],
+    stages: [
+      { name: 'Crystal Beetle', dps:  1, interval: 2.0, unlockCost: 150,  evolveCost: null,  skill: { shredPercent: 2, maxStacks:  5, persistSeconds: 0 } },
+      { name: 'Gemstone Scarab',dps:  4, interval: 1.8, unlockCost: null,  evolveCost: 600,   skill: { shredPercent: 3, maxStacks:  5, persistSeconds: 0 } },
+      { name: 'Diamond Golem',  dps: 10, interval: 1.5, unlockCost: null,  evolveCost: 2500,  skill: { shredPercent: 4, maxStacks:  8, persistSeconds: 0 } },
+      { name: 'Obsidian Titan', dps: 25, interval: 1.2, unlockCost: null,  evolveCost: 10000, skill: { shredPercent: 5, maxStacks: 10, persistSeconds: 2 } },
+    ],
+  },
+  plague_rat: {
+    id: 'plague_rat', element: 'poison', color: '#33cc33',
+    icons: ['🐀', '🐭', '🧪', '☠️'],
+    stages: [
+      { name: 'Plague Rat',       dps:  2, interval: 2.0, unlockCost: 100,  evolveCost: null,  skill: { poisonDPS:  1, poisonDuration: 3, bonusGoldPercent: 10, bossGoldPercent: null } },
+      { name: 'Blight Vermin',    dps:  4, interval: 1.8, unlockCost: null,  evolveCost: 500,   skill: { poisonDPS:  2, poisonDuration: 3, bonusGoldPercent: 20, bossGoldPercent: null } },
+      { name: 'Pestilence Beast', dps:  9, interval: 1.5, unlockCost: null,  evolveCost: 2000,  skill: { poisonDPS:  5, poisonDuration: 4, bonusGoldPercent: 35, bossGoldPercent: null } },
+      { name: 'Contagion Lord',   dps: 22, interval: 1.2, unlockCost: null,  evolveCost: 8000,  skill: { poisonDPS: 12, poisonDuration: 5, bonusGoldPercent: 50, bossGoldPercent: 100  } },
+    ],
+  },
+  frost_wraith: {
+    id: 'frost_wraith', element: 'ice', color: '#66ccff',
+    icons: ['❄️', '🌨️', '🧊', '💀'],
+    stages: [
+      { name: 'Frost Wraith',     dps:  2, interval: 2.0, unlockCost: 150,  evolveCost: null,  skill: { stacksToFreeze: 5, freezeBurst:  15, frozenClickBonus:  0 } },
+      { name: 'Ice Phantom',      dps:  5, interval: 1.8, unlockCost: null,  evolveCost: 600,   skill: { stacksToFreeze: 5, freezeBurst:  40, frozenClickBonus:  0 } },
+      { name: 'Glacial Revenant', dps: 11, interval: 1.5, unlockCost: null,  evolveCost: 2500,  skill: { stacksToFreeze: 4, freezeBurst: 100, frozenClickBonus:  0 } },
+      { name: 'Blizzard Lich',    dps: 28, interval: 1.2, unlockCost: null,  evolveCost: 10000, skill: { stacksToFreeze: 4, freezeBurst: 250, frozenClickBonus: 25 } },
+    ],
+  },
+};
+
 /* ===== GAME STATE ===== */
 function freshState() {
   return {
@@ -230,6 +284,18 @@ function freshState() {
     shopPurchases: {},
     equippedArmor: { weapon: null, head: null, chest: null, gloves: null, trousers: null, greaves: null, shield: null },
 
+    familiars: { owned: {}, activeId: null },
+    familiarCombat: {
+      attackTimer: 0,
+      burnDPS: 0, burnDuration: 0, burnCanCrit: false,
+      dotAccum: 0,
+      shatterStacks: 0,
+      chillStacks: 0,
+      poisonDPS: 0, poisonDuration: 0,
+      frozenClickBonus: 0, frozenClickTimer: 0,
+      clicksSinceShadowProc: 0,
+    },
+
     stats: {
       totalClicks: 0,
       totalDamage: 0,
@@ -252,6 +318,7 @@ const screens = {
   upgrade:     $('screen-upgrade'),
   shop:        $('screen-shop'),
   armory:      $('screen-armory'),
+  familiars:   $('screen-familiars'),
   stats:       $('screen-stats'),
   leaderboard: $('screen-leaderboard'),
 };
@@ -288,6 +355,11 @@ const el = {
   armorItemPicker:  $('armor-item-picker'),
   armorPickerTitle: $('armor-picker-title'),
   armorPickerItems: $('armor-picker-items'),
+  familiarCards:    $('familiar-cards-grid'),
+  familiarGoldNum:  $('familiar-gold-num'),
+  familiarDetail:   $('familiar-detail-panel'),
+  familiarWidget:   $('familiar-widget'),
+  monsterStatus:    $('monster-status-effects'),
 };
 
 /* ===== UTILITIES ===== */
@@ -308,6 +380,386 @@ function clamp(v, lo, hi) {
 
 function delay(ms) {
   return new Promise(r => setTimeout(r, ms));
+}
+
+/* ===== FAMILIAR HELPERS ===== */
+function getActiveFamiliarDef() {
+  return state.familiars.activeId ? FAMILIARS[state.familiars.activeId] : null;
+}
+
+function getActiveFamiliarStageData() {
+  const id = state.familiars.activeId;
+  if (!id) return null;
+  const owned = state.familiars.owned[id];
+  if (!owned) return null;
+  return FAMILIARS[id].stages[owned.stage - 1];
+}
+
+function getDamageMultiplier() {
+  if (state.familiars.activeId !== 'crystal_beetle') return 1;
+  const sd = getActiveFamiliarStageData();
+  if (!sd) return 1;
+  return 1 + (state.familiarCombat.shatterStacks * sd.skill.shredPercent / 100);
+}
+
+function resetFamiliarCombat() {
+  state.familiarCombat = {
+    attackTimer: 0,
+    burnDPS: 0, burnDuration: 0, burnCanCrit: false,
+    dotAccum: 0,
+    shatterStacks: 0,
+    chillStacks: 0,
+    poisonDPS: 0, poisonDuration: 0,
+    frozenClickBonus: 0, frozenClickTimer: 0,
+    clicksSinceShadowProc: 0,
+  };
+  updateStatusIndicators();
+}
+
+function updateStatusIndicators() {
+  if (!el.monsterStatus) return;
+  const fc = state.familiarCombat;
+  const parts = [];
+  if (fc.burnDuration > 0)   parts.push(`<span class="status-icon status-fire">🔥</span>`);
+  if (fc.poisonDuration > 0) parts.push(`<span class="status-icon status-poison">☠️</span>`);
+  if (fc.shatterStacks > 0)  parts.push(`<span class="status-icon status-shatter">💎×${fc.shatterStacks}</span>`);
+  if (fc.chillStacks > 0)    parts.push(`<span class="status-icon status-chill">❄️×${fc.chillStacks}</span>`);
+  if (fc.frozenClickTimer > 0) parts.push(`<span class="status-icon status-frozen">🧊</span>`);
+  el.monsterStatus.innerHTML = parts.join('');
+}
+
+/* ===== FAMILIAR COMBAT ===== */
+function updateFamiliar(delta) {
+  if (!state.familiars.activeId || state.playerClickLocked) return;
+  const sd = getActiveFamiliarStageData();
+  if (!sd) return;
+
+  const fc = state.familiarCombat;
+  fc.attackTimer += delta;
+  if (fc.attackTimer >= sd.interval) {
+    fc.attackTimer -= sd.interval;
+    if (state.monster.hp > 0) familiarAutoAttack();
+  }
+
+  updateDOTEffects(delta);
+
+  if (fc.frozenClickTimer > 0) {
+    fc.frozenClickTimer = Math.max(0, fc.frozenClickTimer - delta);
+    if (fc.frozenClickTimer <= 0) fc.frozenClickBonus = 0;
+  }
+}
+
+function familiarAutoAttack() {
+  const def = getActiveFamiliarDef();
+  const sd  = getActiveFamiliarStageData();
+  if (!def || !sd || state.monster.hp <= 0 || state.playerClickLocked) return;
+
+  let dmg = sd.dps;
+
+  // Crystal Beetle: add stack first, then compute shred on this attack
+  if (def.id === 'crystal_beetle') {
+    const fc = state.familiarCombat;
+    if (fc.shatterStacks < sd.skill.maxStacks) fc.shatterStacks++;
+    dmg = Math.floor(dmg * getDamageMultiplier());
+  }
+
+  spawnFamiliarProjectile(def.color);
+  applyFamiliarSkill(def, sd);
+
+  state.monster.hp = Math.max(0, state.monster.hp - dmg);
+  spawnFamiliarDamageNumber(dmg, def.color);
+  updateHPBar();
+  updateStatusIndicators();
+
+  if (state.monster.hp <= 0 && !state.playerClickLocked) {
+    state.playerClickLocked = true;
+    killMonster().then(() => { state.playerClickLocked = false; });
+  }
+}
+
+function applyFamiliarSkill(def, sd) {
+  const fc = state.familiarCombat;
+  const skill = sd.skill;
+
+  if (def.id === 'ember_wisp') {
+    fc.burnDPS = skill.burnDPS;
+    fc.burnDuration = skill.burnDuration;
+    fc.burnCanCrit = skill.canCrit;
+
+  } else if (def.id === 'plague_rat') {
+    fc.poisonDPS = skill.poisonDPS;
+    fc.poisonDuration = skill.poisonDuration;
+
+  } else if (def.id === 'frost_wraith') {
+    fc.chillStacks++;
+    updateStatusIndicators();
+    if (fc.chillStacks >= skill.stacksToFreeze) {
+      const burst = skill.freezeBurst;
+      state.monster.hp = Math.max(0, state.monster.hp - burst);
+      spawnFamiliarDamageNumber(burst, def.color, true);
+      showFreezeEffect();
+      fc.chillStacks = 0;
+      if (skill.frozenClickBonus > 0) {
+        fc.frozenClickBonus = skill.frozenClickBonus;
+        fc.frozenClickTimer = 2.0;
+      }
+      updateHPBar();
+      updateStatusIndicators();
+      if (state.monster.hp <= 0 && !state.playerClickLocked) {
+        state.playerClickLocked = true;
+        killMonster().then(() => { state.playerClickLocked = false; });
+      }
+    }
+  }
+}
+
+function updateDOTEffects(delta) {
+  const fc = state.familiarCombat;
+  if (!state.monster || state.monster.hp <= 0) return;
+
+  fc.dotAccum += delta;
+  while (fc.dotAccum >= 1.0 && state.monster.hp > 0) {
+    fc.dotAccum -= 1.0;
+
+    if (fc.burnDuration > 0 && fc.burnDPS > 0) {
+      let burnDmg = fc.burnDPS;
+      if (fc.burnCanCrit) {
+        const a = getArmorStats();
+        if (Math.random() < Math.min(0.5, state.player.critChance + a.critBonus)) {
+          burnDmg = Math.floor(burnDmg * (state.player.critMult + a.critMultBonus));
+        }
+      }
+      state.monster.hp = Math.max(0, state.monster.hp - burnDmg);
+      spawnFamiliarDamageNumber(burnDmg, '#ff6600');
+      fc.burnDuration--;
+      updateHPBar();
+      updateStatusIndicators();
+      if (state.monster.hp <= 0 && !state.playerClickLocked) {
+        state.playerClickLocked = true;
+        killMonster().then(() => { state.playerClickLocked = false; });
+        return;
+      }
+    }
+
+    if (fc.poisonDuration > 0 && fc.poisonDPS > 0 && state.monster.hp > 0) {
+      state.monster.hp = Math.max(0, state.monster.hp - fc.poisonDPS);
+      spawnFamiliarDamageNumber(fc.poisonDPS, '#33cc33');
+      fc.poisonDuration--;
+      updateHPBar();
+      updateStatusIndicators();
+      if (state.monster.hp <= 0 && !state.playerClickLocked) {
+        state.playerClickLocked = true;
+        killMonster().then(() => { state.playerClickLocked = false; });
+        return;
+      }
+    }
+  }
+}
+
+function showFreezeEffect() {
+  el.monsterDisplay.classList.add('monster-frozen');
+  setTimeout(() => el.monsterDisplay.classList.remove('monster-frozen'), 700);
+}
+
+function spawnFamiliarProjectile(color) {
+  const famEl = el.familiarWidget;
+  if (!famEl || !famEl.firstElementChild) return;
+  const wrapRect = el.gameWrap.getBoundingClientRect();
+  const famRect  = famEl.getBoundingClientRect();
+  const monRect  = el.monsterWrap.getBoundingClientRect();
+
+  const startX = famRect.left + famRect.width / 2 - wrapRect.left;
+  const startY = famRect.top  + famRect.height / 2 - wrapRect.top;
+  const endX   = monRect.left + monRect.width  / 2 - wrapRect.left;
+  const endY   = monRect.top  + monRect.height / 2 - wrapRect.top;
+
+  const proj = document.createElement('div');
+  proj.className = 'familiar-projectile';
+  proj.style.cssText = `left:${startX}px;top:${startY}px;background:${color};box-shadow:0 0 6px ${color};--pdx:${endX - startX}px;--pdy:${endY - startY}px;`;
+  el.damageLayer.appendChild(proj);
+  setTimeout(() => { if (proj.parentNode) proj.parentNode.removeChild(proj); }, 380);
+}
+
+function spawnFamiliarDamageNumber(amount, color, isBurst) {
+  const rect     = el.monsterWrap.getBoundingClientRect();
+  const wrapRect = el.gameWrap.getBoundingClientRect();
+  const x = rect.left + rect.width / 2 - wrapRect.left + (Math.random() - 0.5) * 60;
+  const y = rect.top  + rect.height * 0.35 - wrapRect.top;
+
+  const div = document.createElement('div');
+  div.className = 'damage-number familiar-dmg' + (isBurst ? ' familiar-burst' : '');
+  div.style.color = color;
+  div.style.left  = x + 'px';
+  div.style.top   = y + 'px';
+  div.textContent = (isBurst ? '❄ ' : '') + formatNum(amount);
+  el.damageLayer.appendChild(div);
+  setTimeout(() => { if (div.parentNode) div.parentNode.removeChild(div); }, 850);
+}
+
+/* ===== FAMILIAR WIDGET (game screen) ===== */
+function renderFamiliarWidget() {
+  if (!el.familiarWidget) return;
+  const id = state.familiars.activeId;
+  if (!id) {
+    el.familiarWidget.className = 'familiar-widget-empty';
+    el.familiarWidget.innerHTML = `<span class="no-fam-icon">🐾</span><span class="no-fam-text">No Familiar</span>`;
+    return;
+  }
+  const def = FAMILIARS[id];
+  const owned = state.familiars.owned[id];
+  const sd  = def.stages[owned.stage - 1];
+  const icon = def.icons[owned.stage - 1];
+
+  el.familiarWidget.className = `familiar-widget-active fam-elem-${def.element}`;
+  el.familiarWidget.innerHTML = `
+    <span class="fam-icon-anim" style="color:${def.color};text-shadow:0 0 8px ${def.color}80;">${icon}</span>
+    <span class="fam-name-label">${sd.name}</span>
+  `;
+}
+
+/* ===== FAMILIAR SHOP ===== */
+function getFamiliarSkillDesc(def, stageIdx) {
+  const skill = def.stages[stageIdx].skill;
+  switch (def.id) {
+    case 'ember_wisp':
+      return `🔥 Ignite: ${skill.burnDPS}/s for ${skill.burnDuration}s${skill.canCrit ? ' (crits!)' : ''}`;
+    case 'shadow_pup': {
+      const extra = skill.freeAttackEveryN ? ` + free attack every ${skill.freeAttackEveryN} clicks` : '';
+      return `🐾 Shadow Bite: +${skill.bonusClickDamage} dmg/click${extra}`;
+    }
+    case 'crystal_beetle':
+      return `💎 Shatter: +${skill.shredPercent}%/stack, max ${skill.maxStacks} (${skill.shredPercent * skill.maxStacks}% max)`;
+    case 'plague_rat':
+      return `☠️ Toxic: ${skill.poisonDPS}/s · +${skill.bonusGoldPercent}% gold${skill.bossGoldPercent ? ` (+${skill.bossGoldPercent}% boss)` : ''}`;
+    case 'frost_wraith':
+      return `❄️ Freeze at ${skill.stacksToFreeze} stacks → ${skill.freezeBurst} burst${skill.frozenClickBonus ? ` +${skill.frozenClickBonus}% clicks 2s` : ''}`;
+    default: return '';
+  }
+}
+
+function renderFamiliarShop() {
+  el.familiarGoldNum.textContent = formatNum(state.gold);
+  el.familiarCards.innerHTML = '';
+  el.familiarDetail.classList.add('hidden');
+
+  Object.values(FAMILIARS).forEach(def => {
+    const owned     = state.familiars.owned[def.id];
+    const isEquipped = state.familiars.activeId === def.id;
+    const stage     = owned ? owned.stage : 0;
+    const sd        = owned ? def.stages[stage - 1] : null;
+    const nextSd    = (owned && stage < def.stages.length) ? def.stages[stage] : null;
+
+    const card = document.createElement('div');
+    card.className = 'fam-card' + (isEquipped ? ' fam-equipped' : '') + (!owned ? ' fam-locked' : '');
+
+    const icon = owned ? def.icons[stage - 1] : '❓';
+    const stageName = sd ? sd.name : def.stages[0].name;
+
+    let actionHtml = '';
+    if (!owned) {
+      const cost = def.stages[0].unlockCost;
+      actionHtml = `<button class="fam-btn fam-buy ${state.gold >= cost ? '' : 'fam-cant'}" data-action="buy" data-id="${def.id}">🪙 ${cost}</button>`;
+    } else {
+      if (!isEquipped) {
+        actionHtml = `<button class="fam-btn fam-equip-btn" data-action="equip" data-id="${def.id}">Equip</button>`;
+      } else {
+        actionHtml = `<span class="fam-active-badge">ACTIVE</span>`;
+      }
+      if (nextSd) {
+        const canEvo = state.gold >= nextSd.evolveCost;
+        actionHtml += `<button class="fam-btn fam-evolve ${canEvo ? '' : 'fam-cant'}" data-action="evolve" data-id="${def.id}">⬆ ${formatNum(nextSd.evolveCost)}g</button>`;
+      } else {
+        actionHtml += `<span class="fam-max-badge">MAX</span>`;
+      }
+    }
+
+    card.innerHTML = `
+      <div class="fam-card-icon" style="color:${def.color};text-shadow:0 0 6px ${def.color}60;">${icon}</div>
+      <div class="fam-card-name">${stageName}</div>
+      <div class="fam-card-actions">${actionHtml}</div>
+    `;
+
+    card.addEventListener('click', e => {
+      if (!e.target.closest('.fam-btn')) showFamiliarDetail(def.id);
+    });
+    card.addEventListener('touchstart', e => {
+      if (!e.target.closest('.fam-btn')) { e.preventDefault(); showFamiliarDetail(def.id); }
+    }, { passive: false });
+
+    el.familiarCards.appendChild(card);
+  });
+
+  el.familiarCards.querySelectorAll('.fam-btn').forEach(btn => {
+    const fire = () => {
+      const { action, id } = btn.dataset;
+      if (action === 'buy')    onBuyFamiliar(id);
+      if (action === 'equip')  onEquipFamiliar(id);
+      if (action === 'evolve') onEvolveFamiliar(id);
+    };
+    btn.addEventListener('click', e => { e.stopPropagation(); fire(); });
+    btn.addEventListener('touchstart', e => { e.preventDefault(); e.stopPropagation(); fire(); }, { passive: false });
+  });
+}
+
+function showFamiliarDetail(id) {
+  const def   = FAMILIARS[id];
+  const owned = state.familiars.owned[id];
+  const stage = owned ? owned.stage : 0;
+  const sd    = owned ? def.stages[stage - 1] : null;
+  const nextSd = (owned && stage < def.stages.length) ? def.stages[stage] : null;
+
+  let html = `<div class="fam-detail-name" style="color:${def.color};">${sd ? sd.name : def.stages[0].name}</div>`;
+  if (!owned) {
+    html += `<div class="fam-detail-row">Unlock: 🪙 ${def.stages[0].unlockCost}</div>`;
+    html += `<div class="fam-detail-row">${getFamiliarSkillDesc(def, 0)}</div>`;
+  } else {
+    html += `<div class="fam-detail-row">Auto: ${sd.dps} dmg / ${sd.interval}s · Stage ${stage}/${def.stages.length}</div>`;
+    html += `<div class="fam-detail-row">${getFamiliarSkillDesc(def, stage - 1)}</div>`;
+    if (nextSd) {
+      html += `<div class="fam-detail-next">→ ${nextSd.name}: ${nextSd.dps} dmg / ${nextSd.interval}s · 🪙 ${formatNum(nextSd.evolveCost)}</div>`;
+    } else {
+      html += `<div class="fam-detail-next">✨ MAX STAGE</div>`;
+    }
+  }
+  el.familiarDetail.innerHTML = html;
+  el.familiarDetail.classList.remove('hidden');
+}
+
+function onBuyFamiliar(id) {
+  const cost = FAMILIARS[id].stages[0].unlockCost;
+  if (state.gold < cost) return;
+  state.gold -= cost;
+  state.familiars.owned[id] = { stage: 1 };
+  renderFamiliarShop();
+  updateHUD();
+}
+
+function onEquipFamiliar(id) {
+  state.familiars.activeId = id;
+  resetFamiliarCombat();
+  renderFamiliarShop();
+  renderFamiliarWidget();
+}
+
+function onEvolveFamiliar(id) {
+  const owned = state.familiars.owned[id];
+  if (!owned) return;
+  const nextSd = FAMILIARS[id].stages[owned.stage];
+  if (!nextSd || !nextSd.evolveCost || state.gold < nextSd.evolveCost) return;
+  state.gold -= nextSd.evolveCost;
+  owned.stage++;
+  if (state.familiars.activeId === id) {
+    el.familiarWidget.classList.add('fam-evolving');
+    setTimeout(() => el.familiarWidget.classList.remove('fam-evolving'), 800);
+    renderFamiliarWidget();
+  }
+  renderFamiliarShop();
+  updateHUD();
+}
+
+function openFamiliarShop() {
+  renderFamiliarShop();
+  showScreen('familiars');
 }
 
 /* ===== ARMOR STATS ===== */
@@ -388,13 +840,18 @@ function drawParticles() {
   });
 }
 
+let lastRafTime = 0;
 function startParticleLoop() {
   if (particleRaf) cancelAnimationFrame(particleRaf);
-  function loop() {
+  lastRafTime = 0;
+  function loop(ts) {
+    const delta = lastRafTime ? Math.min((ts - lastRafTime) / 1000, 0.1) : 0;
+    lastRafTime = ts;
     drawParticles();
+    if (state.screen === 'game') updateFamiliar(delta);
     particleRaf = requestAnimationFrame(loop);
   }
-  loop();
+  requestAnimationFrame(loop);
 }
 
 /* ===== HUD UPDATE ===== */
@@ -657,6 +1114,8 @@ function spawnMonster(animate) {
   const hp      = calcMonsterHP(state.level, isBoss);
   const gold    = calcGoldReward(state.level, isBoss);
 
+  resetFamiliarCombat();
+
   state.monster = {
     name:      data.name,
     hp:        hp,
@@ -696,6 +1155,21 @@ function computeHit() {
   dmg += state.player.soulHarvestBonus;
   state.player.soulHarvestBonus = 0;
 
+  // Shadow Pup: bonus click damage
+  if (state.familiars.activeId === 'shadow_pup') {
+    const sd = getActiveFamiliarStageData();
+    if (sd && sd.skill.bonusClickDamage > 0) dmg += sd.skill.bonusClickDamage;
+  }
+
+  // Crystal Beetle: shred multiplier applies to click damage too
+  dmg = Math.floor(dmg * getDamageMultiplier());
+
+  // Frost Wraith: frozen click bonus (+25% for 2s after freeze)
+  const fc = state.familiarCombat;
+  if (fc.frozenClickBonus > 0 && fc.frozenClickTimer > 0) {
+    dmg = Math.floor(dmg * (1 + fc.frozenClickBonus / 100));
+  }
+
   // Phantom Strikes
   let extraHit = false;
   if (state.player.doubleStrike > 0 && Math.random() < state.player.doubleStrike) {
@@ -709,9 +1183,20 @@ function computeHit() {
 async function killMonster() {
   stopMonsterAttackTimer();
   state.kills++;
-  state.gold += state.monster.goldReward;
+
+  // Plague Rat: gold bonus on kill
+  let goldEarned = state.monster.goldReward;
+  if (state.familiars.activeId === 'plague_rat') {
+    const sd = getActiveFamiliarStageData();
+    if (sd) {
+      const bonusPct = state.monster.isBoss ? (sd.skill.bossGoldPercent || sd.skill.bonusGoldPercent) : sd.skill.bonusGoldPercent;
+      if (bonusPct > 0) goldEarned = Math.floor(goldEarned * (1 + bonusPct / 100));
+    }
+  }
+
+  state.gold += goldEarned;
   state.stats.totalKills++;
-  state.stats.totalGold += state.monster.goldReward;
+  state.stats.totalGold += goldEarned;
 
   // Soul Harvest charge from kills
   if (state.player.soulHarvest) {
@@ -727,6 +1212,8 @@ async function killMonster() {
   }
 
   updateHUD();
+
+  resetFamiliarCombat();
 
   if (state.kills >= state.killsRequired) {
     await delay(250);
@@ -766,6 +1253,18 @@ async function handleMonsterHit(clientX, clientY) {
     state.monster.hp = Math.max(0, state.monster.hp - extraDmg);
     spawnDamageNumber(extraDmg, false, clientX + 20, clientY - 20);
     updateHPBar();
+  }
+
+  // Shadow Pup stage 4: every 5 clicks triggers a free familiar auto-attack
+  if (state.familiars.activeId === 'shadow_pup') {
+    const sd = getActiveFamiliarStageData();
+    if (sd && sd.skill.freeAttackEveryN > 0 && state.monster.hp > 0) {
+      state.familiarCombat.clicksSinceShadowProc++;
+      if (state.familiarCombat.clicksSinceShadowProc >= sd.skill.freeAttackEveryN) {
+        state.familiarCombat.clicksSinceShadowProc = 0;
+        familiarAutoAttack();
+      }
+    }
   }
 
   if (state.monster.hp <= 0) {
@@ -893,6 +1392,7 @@ async function startLevel(n) {
   showScreen('game');
   updateHUD();
   updatePlayerHPBar();
+  renderFamiliarWidget();
 
   // Boss tint
   if (state.isBossLevel) {
@@ -1197,6 +1697,15 @@ function setupEvents() {
     el.armorSlotsGrid.classList.remove('hidden');
     renderArmorSlots();
   });
+
+  // Familiars button
+  $('btn-familiars').addEventListener('click', openFamiliarShop);
+
+  // Familiars close
+  $('btn-familiars-close').addEventListener('click', () => showScreen('game'));
+
+  // Familiar widget — tap to open shop
+  el.familiarWidget.addEventListener('click', openFamiliarShop);
 
   // Shop button
   $('btn-shop').addEventListener('click', openShop);

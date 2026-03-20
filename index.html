@@ -47,6 +47,7 @@
           </div>
           <div id="hp-text"></div>
         </div>
+        <div id="monster-status-effects"></div>
       </div>
 
       <div id="player-hp-section">
@@ -58,10 +59,16 @@
         </div>
       </div>
 
+      <!-- Familiar widget -->
+      <div id="familiar-area">
+        <div id="familiar-widget"></div>
+      </div>
+
       <div id="hud-bottom">
         <span class="hud-label">DMG: <span id="dmg-num">1</span></span>
         <span class="hud-label">CRIT: <span id="crit-num">5</span>%</span>
         <button id="btn-armory" class="btn-shop">⚔️ Armor</button>
+        <button id="btn-familiars" class="btn-shop">🐾 Pets</button>
         <button id="btn-shop" class="btn-shop">🛒 Shop</button>
       </div>
     </div>
@@ -110,6 +117,15 @@
         <div id="leaderboard-list"></div>
         <button id="btn-leaderboard-close" class="btn-primary">Back</button>
       </div>
+    </div>
+
+    <!-- FAMILIAR SHOP SCREEN -->
+    <div id="screen-familiars" class="screen hidden">
+      <h2 class="gothic-heading">Familiar Companions</h2>
+      <p class="shop-gold-display">🪙 <span id="familiar-gold-num">0</span></p>
+      <div id="familiar-cards-grid"></div>
+      <div id="familiar-detail-panel" class="hidden"></div>
+      <button id="btn-familiars-close" class="btn-primary" style="margin-top:1rem;">Return to Battle</button>
     </div>
 
     <!-- OVERLAYS -->

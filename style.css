@@ -1189,3 +1189,336 @@ html, body {
   background: rgba(255,255,255,0.15);
   border-radius: 2px;
 }
+
+/* ===== FAMILIAR SYSTEM ===== */
+
+/* Familiar area on game screen */
+#familiar-area {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+#familiar-widget {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Empty state */
+.familiar-widget-empty {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px dashed rgba(255,255,255,0.15);
+  border-radius: 20px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.familiar-widget-empty:hover { opacity: 0.8; }
+.no-fam-icon { font-size: 1rem; }
+.no-fam-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* Active familiar widget */
+.familiar-widget-active {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.3);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.familiar-widget-active:hover {
+  transform: scale(1.04);
+}
+
+.fam-icon-anim {
+  font-size: 1.4rem;
+  display: inline-block;
+  animation: famBob 2s ease-in-out infinite;
+}
+
+@keyframes famBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
+.fam-name-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text);
+}
+
+/* Element color tints on the widget border */
+.fam-elem-fire   { border-color: #ff6600; box-shadow: 0 0 8px rgba(255,102,0,0.3); }
+.fam-elem-dark   { border-color: #9933ff; box-shadow: 0 0 8px rgba(153,51,255,0.3); }
+.fam-elem-earth  { border-color: #00cccc; box-shadow: 0 0 8px rgba(0,204,204,0.3); }
+.fam-elem-poison { border-color: #33cc33; box-shadow: 0 0 8px rgba(51,204,51,0.3); }
+.fam-elem-ice    { border-color: #66ccff; box-shadow: 0 0 8px rgba(102,204,255,0.3); }
+
+/* Familiar projectile */
+.familiar-projectile {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: famProj 0.35s ease-in forwards;
+}
+
+@keyframes famProj {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--pdx), var(--pdy)) scale(0.4); opacity: 0; }
+}
+
+/* Familiar damage numbers */
+.familiar-dmg {
+  font-size: 0.9rem !important;
+  font-weight: 700;
+  animation: famDmgFloat 0.85s ease-out forwards !important;
+}
+.familiar-burst {
+  font-size: 1.15rem !important;
+  font-weight: 900;
+}
+
+@keyframes famDmgFloat {
+  0%   { transform: translateY(0) scale(1);    opacity: 1; }
+  60%  { transform: translateY(-28px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(-44px) scale(0.9); opacity: 0; }
+}
+
+/* Monster status effect badges */
+#monster-status-effects {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  min-height: 1.4rem;
+  margin-top: 0.25rem;
+}
+
+.status-icon {
+  font-size: 0.8rem;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.5px;
+}
+.status-fire   { border-color: #ff6600; }
+.status-poison { border-color: #33cc33; }
+.status-shatter{ border-color: #00cccc; }
+.status-chill  { border-color: #66ccff; }
+.status-frozen { border-color: #aaddff; background: rgba(100,200,255,0.15); }
+
+/* Frozen monster flash */
+@keyframes frozenFlash {
+  0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+  50%       { filter: brightness(1.6) hue-rotate(180deg) saturate(3); }
+}
+.monster-frozen {
+  animation: frozenFlash 0.7s ease-in-out !important;
+}
+
+/* ===== FAMILIAR SHOP SCREEN ===== */
+/* NOTE: display is controlled by .screen / .screen.hidden — do NOT set display here */
+#screen-familiars {
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+#familiar-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+#familiar-detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 420px;
+}
+#familiar-detail-panel.hidden { display: none; }
+
+/* Familiar card */
+.fam-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.fam-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.25);
+}
+.fam-card.is-active {
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255,215,0,0.2);
+}
+
+.fam-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.fam-card-icon { font-size: 1.6rem; }
+.fam-card-info { flex: 1; }
+.fam-card-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.fam-card-stage {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+.fam-active-badge {
+  font-size: 0.58rem;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  border-radius: 8px;
+  padding: 1px 5px;
+}
+.fam-max-badge {
+  font-size: 0.58rem;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  color: #aaddff;
+  border: 1px solid #aaddff;
+  border-radius: 8px;
+  padding: 1px 5px;
+}
+.fam-card-desc {
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* Familiar shop buttons */
+.fam-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+.fam-btn:active { transform: scale(0.96); }
+.fam-btn.fam-buy      { background: #7b2fff; color: #fff; }
+.fam-btn.fam-equip-btn{ background: #2a7a2a; color: #fff; }
+.fam-btn.fam-evolve   { background: #cc6600; color: #fff; }
+.fam-btn:disabled, .fam-cant {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Detail panel */
+.fam-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+}
+.fam-detail-icon { font-size: 2.4rem; }
+.fam-detail-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.fam-detail-sub {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.fam-detail-stages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.fam-stage-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+.fam-stage-row.current-stage {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.07);
+}
+.fam-stage-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  width: 1.6rem;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+.fam-stage-info { flex: 1; }
+.fam-stage-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.fam-stage-skill {
+  font-size: 0.64rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.fam-stage-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+/* evolving flash */
+@keyframes evolveFlash {
+  0%   { filter: brightness(1); }
+  50%  { filter: brightness(3) saturate(3); }
+  100% { filter: brightness(1); }
+}
+.fam-evolving {
+  animation: evolveFlash 0.6s ease-in-out;
+}
