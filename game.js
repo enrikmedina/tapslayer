@@ -197,50 +197,50 @@ const FAMILIARS = {
     id: 'ember_wisp', element: 'fire', color: '#ff6600',
     icons: ['🔥', '✨', '😈', '🦅'],
     stages: [
-      { name: 'Ember Wisp',       dps:  2, interval: 2.0, unlockCost: 100,  evolveCost: null,  skill: { burnDPS:  1, burnDuration: 3, canCrit: false } },
-      { name: 'Flame Sprite',     dps:  5, interval: 1.8, unlockCost: null,  evolveCost: 500,   skill: { burnDPS:  3, burnDuration: 3, canCrit: false } },
-      { name: 'Inferno Imp',      dps: 12, interval: 1.5, unlockCost: null,  evolveCost: 2000,  skill: { burnDPS:  7, burnDuration: 4, canCrit: false } },
-      { name: 'Hellfire Phoenix', dps: 30, interval: 1.2, unlockCost: null,  evolveCost: 8000,  skill: { burnDPS: 15, burnDuration: 5, canCrit: true  } },
+      { name: 'Ember Wisp',       dps:  3, interval: 2.0, evolveCost: null, skill: { burnDPS:  2, burnDuration: 3, canCrit: false } },
+      { name: 'Flame Sprite',     dps:  6, interval: 1.8, evolveCost: 500,  skill: { burnDPS:  4, burnDuration: 3, canCrit: false } },
+      { name: 'Inferno Imp',      dps: 14, interval: 1.5, evolveCost: 2000, skill: { burnDPS:  8, burnDuration: 4, canCrit: false } },
+      { name: 'Hellfire Phoenix', dps: 32, interval: 1.2, evolveCost: 4000, skill: { burnDPS: 18, burnDuration: 5, canCrit: true  } },
     ],
   },
   shadow_pup: {
     id: 'shadow_pup', element: 'dark', color: '#9933ff',
     icons: ['🐾', '🐺', '👻', '🌑'],
     stages: [
-      { name: 'Shadow Pup',   dps:  1, interval: 2.5, unlockCost: 100,  evolveCost: null,  skill: { bonusClickDamage:  1, freeAttackEveryN: null } },
-      { name: 'Shade Hound',  dps:  3, interval: 2.2, unlockCost: null,  evolveCost: 500,   skill: { bonusClickDamage:  3, freeAttackEveryN: null } },
-      { name: 'Phantom Wolf', dps:  8, interval: 1.8, unlockCost: null,  evolveCost: 2000,  skill: { bonusClickDamage:  7, freeAttackEveryN: null } },
-      { name: 'Void Fenrir',  dps: 20, interval: 1.5, unlockCost: null,  evolveCost: 8000,  skill: { bonusClickDamage: 15, freeAttackEveryN: 5    } },
+      { name: 'Shadow Pup',   dps:  2, interval: 2.5, evolveCost: null, skill: { comboDamageMult: 5, comboThreshold: 10, frenzyBonus: 0,  frenzyDuration: 0 } },
+      { name: 'Shade Hound',  dps:  4, interval: 2.2, evolveCost: 500,  skill: { comboDamageMult: 5, comboThreshold:  8, frenzyBonus: 0,  frenzyDuration: 0 } },
+      { name: 'Phantom Wolf', dps: 10, interval: 1.8, evolveCost: 2000, skill: { comboDamageMult: 5, comboThreshold:  6, frenzyBonus: 0,  frenzyDuration: 0 } },
+      { name: 'Void Fenrir',  dps: 22, interval: 1.5, evolveCost: 4000, skill: { comboDamageMult: 5, comboThreshold:  5, frenzyBonus: 15, frenzyDuration: 3 } },
     ],
   },
   crystal_beetle: {
     id: 'crystal_beetle', element: 'earth', color: '#00cccc',
     icons: ['🪲', '💎', '🗿', '⬛'],
     stages: [
-      { name: 'Crystal Beetle', dps:  1, interval: 2.0, unlockCost: 150,  evolveCost: null,  skill: { shredPercent: 2, maxStacks:  5, persistSeconds: 0 } },
-      { name: 'Gemstone Scarab',dps:  4, interval: 1.8, unlockCost: null,  evolveCost: 600,   skill: { shredPercent: 3, maxStacks:  5, persistSeconds: 0 } },
-      { name: 'Diamond Golem',  dps: 10, interval: 1.5, unlockCost: null,  evolveCost: 2500,  skill: { shredPercent: 4, maxStacks:  8, persistSeconds: 0 } },
-      { name: 'Obsidian Titan', dps: 25, interval: 1.2, unlockCost: null,  evolveCost: 10000, skill: { shredPercent: 5, maxStacks: 10, persistSeconds: 2 } },
+      { name: 'Crystal Beetle', dps:  2, interval: 2.0, evolveCost: null, skill: { shredPercent: 2, maxStacks:  5, fractureChance: 0    } },
+      { name: 'Gemstone Scarab',dps:  5, interval: 1.8, evolveCost: 500,  skill: { shredPercent: 3, maxStacks:  5, fractureChance: 0    } },
+      { name: 'Diamond Golem',  dps: 12, interval: 1.5, evolveCost: 2000, skill: { shredPercent: 4, maxStacks:  8, fractureChance: 0    } },
+      { name: 'Obsidian Titan', dps: 28, interval: 1.2, evolveCost: 4000, skill: { shredPercent: 5, maxStacks: 10, fractureChance: 0.20 } },
     ],
   },
   plague_rat: {
     id: 'plague_rat', element: 'poison', color: '#33cc33',
     icons: ['🐀', '🐭', '🧪', '☠️'],
     stages: [
-      { name: 'Plague Rat',       dps:  2, interval: 2.0, unlockCost: 100,  evolveCost: null,  skill: { poisonDPS:  1, poisonDuration: 3, bonusGoldPercent: 10, bossGoldPercent: null } },
-      { name: 'Blight Vermin',    dps:  4, interval: 1.8, unlockCost: null,  evolveCost: 500,   skill: { poisonDPS:  2, poisonDuration: 3, bonusGoldPercent: 20, bossGoldPercent: null } },
-      { name: 'Pestilence Beast', dps:  9, interval: 1.5, unlockCost: null,  evolveCost: 2000,  skill: { poisonDPS:  5, poisonDuration: 4, bonusGoldPercent: 35, bossGoldPercent: null } },
-      { name: 'Contagion Lord',   dps: 22, interval: 1.2, unlockCost: null,  evolveCost: 8000,  skill: { poisonDPS: 12, poisonDuration: 5, bonusGoldPercent: 50, bossGoldPercent: 100  } },
+      { name: 'Plague Rat',       dps:  3, interval: 2.0, evolveCost: null, skill: { poisonDPS:  2, poisonDuration: 3, bonusGoldPercent: 15, poisonSpreads: false, freeHealEveryN: 0 } },
+      { name: 'Blight Vermin',    dps:  5, interval: 1.8, evolveCost: 500,  skill: { poisonDPS:  3, poisonDuration: 3, bonusGoldPercent: 25, poisonSpreads: false, freeHealEveryN: 0 } },
+      { name: 'Pestilence Beast', dps: 11, interval: 1.5, evolveCost: 2000, skill: { poisonDPS:  6, poisonDuration: 4, bonusGoldPercent: 40, poisonSpreads: true,  freeHealEveryN: 0 } },
+      { name: 'Contagion Lord',   dps: 24, interval: 1.2, evolveCost: 4000, skill: { poisonDPS: 14, poisonDuration: 5, bonusGoldPercent: 60, poisonSpreads: true,  freeHealEveryN: 5 } },
     ],
   },
   frost_wraith: {
     id: 'frost_wraith', element: 'ice', color: '#66ccff',
     icons: ['❄️', '🌨️', '🧊', '💀'],
     stages: [
-      { name: 'Frost Wraith',     dps:  2, interval: 2.0, unlockCost: 150,  evolveCost: null,  skill: { stacksToFreeze: 5, freezeBurst:  15, frozenClickBonus:  0 } },
-      { name: 'Ice Phantom',      dps:  5, interval: 1.8, unlockCost: null,  evolveCost: 600,   skill: { stacksToFreeze: 5, freezeBurst:  40, frozenClickBonus:  0 } },
-      { name: 'Glacial Revenant', dps: 11, interval: 1.5, unlockCost: null,  evolveCost: 2500,  skill: { stacksToFreeze: 4, freezeBurst: 100, frozenClickBonus:  0 } },
-      { name: 'Blizzard Lich',    dps: 28, interval: 1.2, unlockCost: null,  evolveCost: 10000, skill: { stacksToFreeze: 4, freezeBurst: 250, frozenClickBonus: 25 } },
+      { name: 'Frost Wraith',     dps:  3, interval: 2.0, evolveCost: null, skill: { stacksToFreeze: 5, freezeBurst:  20, stunDuration: 2.0, clickBonus:  50 } },
+      { name: 'Ice Phantom',      dps:  6, interval: 1.8, evolveCost: 500,  skill: { stacksToFreeze: 5, freezeBurst:  50, stunDuration: 2.0, clickBonus:  50 } },
+      { name: 'Glacial Revenant', dps: 13, interval: 1.5, evolveCost: 2000, skill: { stacksToFreeze: 4, freezeBurst: 120, stunDuration: 2.5, clickBonus:  75 } },
+      { name: 'Blizzard Lich',    dps: 30, interval: 1.2, evolveCost: 4000, skill: { stacksToFreeze: 4, freezeBurst: 280, stunDuration: 3.5, clickBonus: 100 } },
     ],
   },
 };
@@ -287,13 +287,15 @@ function freshState() {
     familiars: { owned: {}, activeId: null },
     familiarCombat: {
       attackTimer: 0,
-      burnDPS: 0, burnDuration: 0, burnCanCrit: false,
+      burns: [],
       dotAccum: 0,
       shatterStacks: 0,
       chillStacks: 0,
       poisonDPS: 0, poisonDuration: 0,
       frozenClickBonus: 0, frozenClickTimer: 0,
       clicksSinceShadowProc: 0,
+      frenzyTimer: 0,
+      killsForHeal: 0,
     },
 
     stats: {
@@ -314,6 +316,7 @@ const $ = id => document.getElementById(id);
 
 const screens = {
   title:       $('screen-title'),
+  petSelect:   $('screen-pet-select'),
   game:        $('screen-game'),
   upgrade:     $('screen-upgrade'),
   shop:        $('screen-shop'),
@@ -403,16 +406,37 @@ function getDamageMultiplier() {
 }
 
 function resetFamiliarCombat() {
+  const prevShatterStacks = state.familiarCombat.shatterStacks;
+  const prevKillsForHeal  = state.familiarCombat.killsForHeal;
+  const hadPoison         = state.familiarCombat.poisonDuration > 0;
+
   state.familiarCombat = {
     attackTimer: 0,
-    burnDPS: 0, burnDuration: 0, burnCanCrit: false,
+    burns: [],
     dotAccum: 0,
     shatterStacks: 0,
     chillStacks: 0,
     poisonDPS: 0, poisonDuration: 0,
     frozenClickBonus: 0, frozenClickTimer: 0,
     clicksSinceShadowProc: 0,
+    frenzyTimer: 0,
+    killsForHeal: prevKillsForHeal,
   };
+
+  // Crystal Beetle: shatter stacks persist between monsters
+  if (state.familiars.activeId === 'crystal_beetle') {
+    state.familiarCombat.shatterStacks = prevShatterStacks;
+  }
+
+  // Plague Rat stage 3+: poison spreads to next monster
+  if (state.familiars.activeId === 'plague_rat' && hadPoison) {
+    const sd = getActiveFamiliarStageData();
+    if (sd && sd.skill.poisonSpreads) {
+      state.familiarCombat.poisonDPS      = sd.skill.poisonDPS;
+      state.familiarCombat.poisonDuration = sd.skill.poisonDuration;
+    }
+  }
+
   updateStatusIndicators();
 }
 
@@ -420,7 +444,7 @@ function updateStatusIndicators() {
   if (!el.monsterStatus) return;
   const fc = state.familiarCombat;
   const parts = [];
-  if (fc.burnDuration > 0)   parts.push(`<span class="status-icon status-fire">🔥</span>`);
+  if (fc.burns && fc.burns.length > 0) parts.push(`<span class="status-icon status-fire">🔥×${fc.burns.length}</span>`);
   if (fc.poisonDuration > 0) parts.push(`<span class="status-icon status-poison">☠️</span>`);
   if (fc.shatterStacks > 0)  parts.push(`<span class="status-icon status-shatter">💎×${fc.shatterStacks}</span>`);
   if (fc.chillStacks > 0)    parts.push(`<span class="status-icon status-chill">❄️×${fc.chillStacks}</span>`);
@@ -443,9 +467,19 @@ function updateFamiliar(delta) {
 
   updateDOTEffects(delta);
 
+  if (fc.frenzyTimer > 0) {
+    fc.frenzyTimer = Math.max(0, fc.frenzyTimer - delta);
+  }
+
   if (fc.frozenClickTimer > 0) {
     fc.frozenClickTimer = Math.max(0, fc.frozenClickTimer - delta);
-    if (fc.frozenClickTimer <= 0) fc.frozenClickBonus = 0;
+    if (fc.frozenClickTimer <= 0) {
+      fc.frozenClickBonus = 0;
+      // Frost Wraith stun ended — restart monster attack
+      if (state.monster.hp > 0 && !state.playerClickLocked && !state.monsterAttackTimer) {
+        startMonsterAttackTimer();
+      }
+    }
   }
 }
 
@@ -482,9 +516,8 @@ function applyFamiliarSkill(def, sd) {
   const skill = sd.skill;
 
   if (def.id === 'ember_wisp') {
-    fc.burnDPS = skill.burnDPS;
-    fc.burnDuration = skill.burnDuration;
-    fc.burnCanCrit = skill.canCrit;
+    // Stacking burns — each attack pushes a fresh burn layer
+    fc.burns.push({ dps: skill.burnDPS, remaining: skill.burnDuration, canCrit: skill.canCrit });
 
   } else if (def.id === 'plague_rat') {
     fc.poisonDPS = skill.poisonDPS;
@@ -499,10 +532,10 @@ function applyFamiliarSkill(def, sd) {
       spawnFamiliarDamageNumber(burst, def.color, true);
       showFreezeEffect();
       fc.chillStacks = 0;
-      if (skill.frozenClickBonus > 0) {
-        fc.frozenClickBonus = skill.frozenClickBonus;
-        fc.frozenClickTimer = 2.0;
-      }
+      // Stun monster and apply click bonus during window
+      fc.frozenClickBonus = skill.clickBonus;
+      fc.frozenClickTimer = skill.stunDuration;
+      stopMonsterAttackTimer();
       updateHPBar();
       updateStatusIndicators();
       if (state.monster.hp <= 0 && !state.playerClickLocked) {
@@ -521,24 +554,29 @@ function updateDOTEffects(delta) {
   while (fc.dotAccum >= 1.0 && state.monster.hp > 0) {
     fc.dotAccum -= 1.0;
 
-    if (fc.burnDuration > 0 && fc.burnDPS > 0) {
-      let burnDmg = fc.burnDPS;
-      if (fc.burnCanCrit) {
-        const a = getArmorStats();
-        if (Math.random() < Math.min(0.5, state.player.critChance + a.critBonus)) {
-          burnDmg = Math.floor(burnDmg * (state.player.critMult + a.critMultBonus));
+    // Ember Wisp: tick all stacked burns
+    if (fc.burns.length > 0) {
+      const a = getArmorStats();
+      for (let i = fc.burns.length - 1; i >= 0; i--) {
+        const burn = fc.burns[i];
+        if (burn.remaining > 0 && state.monster.hp > 0) {
+          let burnDmg = burn.dps;
+          if (burn.canCrit && Math.random() < Math.min(0.5, state.player.critChance + a.critBonus)) {
+            burnDmg = Math.floor(burnDmg * (state.player.critMult + a.critMultBonus));
+          }
+          state.monster.hp = Math.max(0, state.monster.hp - burnDmg);
+          spawnFamiliarDamageNumber(burnDmg, '#ff6600');
+          burn.remaining--;
+          updateHPBar();
+          if (state.monster.hp <= 0 && !state.playerClickLocked) {
+            state.playerClickLocked = true;
+            killMonster().then(() => { state.playerClickLocked = false; });
+            return;
+          }
         }
+        if (burn.remaining <= 0) fc.burns.splice(i, 1);
       }
-      state.monster.hp = Math.max(0, state.monster.hp - burnDmg);
-      spawnFamiliarDamageNumber(burnDmg, '#ff6600');
-      fc.burnDuration--;
-      updateHPBar();
       updateStatusIndicators();
-      if (state.monster.hp <= 0 && !state.playerClickLocked) {
-        state.playerClickLocked = true;
-        killMonster().then(() => { state.playerClickLocked = false; });
-        return;
-      }
     }
 
     if (fc.poisonDuration > 0 && fc.poisonDPS > 0 && state.monster.hp > 0) {
@@ -612,7 +650,9 @@ function renderFamiliarWidget() {
 
   el.familiarWidget.className = `familiar-widget-active fam-elem-${def.element}`;
   el.familiarWidget.innerHTML = `
-    <span class="fam-icon-anim" style="color:${def.color};text-shadow:0 0 8px ${def.color}80;">${icon}</span>
+    <div class="fam-sprite-wrap">
+      <span class="fam-sprite" style="color:${def.color};text-shadow:0 0 16px ${def.color},0 0 32px ${def.color}60;">${icon}</span>
+    </div>
     <span class="fam-name-label">${sd.name}</span>
   `;
 }
@@ -622,17 +662,22 @@ function getFamiliarSkillDesc(def, stageIdx) {
   const skill = def.stages[stageIdx].skill;
   switch (def.id) {
     case 'ember_wisp':
-      return `🔥 Ignite: ${skill.burnDPS}/s for ${skill.burnDuration}s${skill.canCrit ? ' (crits!)' : ''}`;
+      return `🔥 Stacking Ignite: +${skill.burnDPS}/s for ${skill.burnDuration}s per attack${skill.canCrit ? ' · Burns can crit!' : ''}`;
     case 'shadow_pup': {
-      const extra = skill.freeAttackEveryN ? ` + free attack every ${skill.freeAttackEveryN} clicks` : '';
-      return `🐾 Shadow Bite: +${skill.bonusClickDamage} dmg/click${extra}`;
+      const frenzy = skill.frenzyDuration > 0 ? ` · Combo triggers Frenzy: +${skill.frenzyBonus}% dmg for ${skill.frenzyDuration}s` : '';
+      return `🐾 Shadow Combo: every ${skill.comboThreshold} clicks → ${skill.comboDamageMult}× burst${frenzy}`;
     }
-    case 'crystal_beetle':
-      return `💎 Shatter: +${skill.shredPercent}%/stack, max ${skill.maxStacks} (${skill.shredPercent * skill.maxStacks}% max)`;
-    case 'plague_rat':
-      return `☠️ Toxic: ${skill.poisonDPS}/s · +${skill.bonusGoldPercent}% gold${skill.bossGoldPercent ? ` (+${skill.bossGoldPercent}% boss)` : ''}`;
+    case 'crystal_beetle': {
+      const fracture = skill.fractureChance > 0 ? ` · At max stacks: ${skill.fractureChance * 100}% Fracture (3× dmg)` : '';
+      return `💎 Shatter: +${skill.shredPercent}%/stack (max ${skill.maxStacks}) · Stacks persist${fracture}`;
+    }
+    case 'plague_rat': {
+      const spread = skill.poisonSpreads ? ' · Spreads on kill' : '';
+      const heal   = skill.freeHealEveryN > 0 ? ` · Every ${skill.freeHealEveryN} kills: +50 HP` : '';
+      return `☠️ Toxic: ${skill.poisonDPS}/s · +${skill.bonusGoldPercent}% gold${spread}${heal}`;
+    }
     case 'frost_wraith':
-      return `❄️ Freeze at ${skill.stacksToFreeze} stacks → ${skill.freezeBurst} burst${skill.frozenClickBonus ? ` +${skill.frozenClickBonus}% clicks 2s` : ''}`;
+      return `❄️ Freeze at ${skill.stacksToFreeze} stacks → ${skill.freezeBurst} burst · Stuns ${skill.stunDuration}s · +${skill.clickBonus}% click dmg`;
     default: return '';
   }
 }
@@ -657,8 +702,7 @@ function renderFamiliarShop() {
 
     let actionHtml = '';
     if (!owned) {
-      const cost = def.stages[0].unlockCost;
-      actionHtml = `<button class="fam-btn fam-buy ${state.gold >= cost ? '' : 'fam-cant'}" data-action="buy" data-id="${def.id}">🪙 ${cost}</button>`;
+      actionHtml = `<span class="fam-locked-badge">Select at game start</span>`;
     } else {
       if (!isEquipped) {
         actionHtml = `<button class="fam-btn fam-equip-btn" data-action="equip" data-id="${def.id}">Equip</button>`;
@@ -674,7 +718,7 @@ function renderFamiliarShop() {
     }
 
     card.innerHTML = `
-      <div class="fam-card-icon" style="color:${def.color};text-shadow:0 0 6px ${def.color}60;">${icon}</div>
+      <div class="fam-card-icon" style="color:${def.color};text-shadow:0 0 6px ${def.color}60;${!owned ? 'opacity:0.4;' : ''}">${icon}</div>
       <div class="fam-card-name">${stageName}</div>
       <div class="fam-card-actions">${actionHtml}</div>
     `;
@@ -692,7 +736,6 @@ function renderFamiliarShop() {
   el.familiarCards.querySelectorAll('.fam-btn').forEach(btn => {
     const fire = () => {
       const { action, id } = btn.dataset;
-      if (action === 'buy')    onBuyFamiliar(id);
       if (action === 'equip')  onEquipFamiliar(id);
       if (action === 'evolve') onEvolveFamiliar(id);
     };
@@ -710,7 +753,7 @@ function showFamiliarDetail(id) {
 
   let html = `<div class="fam-detail-name" style="color:${def.color};">${sd ? sd.name : def.stages[0].name}</div>`;
   if (!owned) {
-    html += `<div class="fam-detail-row">Unlock: 🪙 ${def.stages[0].unlockCost}</div>`;
+    html += `<div class="fam-detail-row" style="opacity:0.6;">Selected at game start</div>`;
     html += `<div class="fam-detail-row">${getFamiliarSkillDesc(def, 0)}</div>`;
   } else {
     html += `<div class="fam-detail-row">Auto: ${sd.dps} dmg / ${sd.interval}s · Stage ${stage}/${def.stages.length}</div>`;
@@ -723,15 +766,6 @@ function showFamiliarDetail(id) {
   }
   el.familiarDetail.innerHTML = html;
   el.familiarDetail.classList.remove('hidden');
-}
-
-function onBuyFamiliar(id) {
-  const cost = FAMILIARS[id].stages[0].unlockCost;
-  if (state.gold < cost) return;
-  state.gold -= cost;
-  state.familiars.owned[id] = { stage: 1 };
-  renderFamiliarShop();
-  updateHUD();
 }
 
 function onEquipFamiliar(id) {
@@ -1155,16 +1189,28 @@ function computeHit() {
   dmg += state.player.soulHarvestBonus;
   state.player.soulHarvestBonus = 0;
 
-  // Shadow Pup: bonus click damage
+  // Shadow Pup stage 4: frenzy buff after shadow combo proc
   if (state.familiars.activeId === 'shadow_pup') {
     const sd = getActiveFamiliarStageData();
-    if (sd && sd.skill.bonusClickDamage > 0) dmg += sd.skill.bonusClickDamage;
+    const fc2 = state.familiarCombat;
+    if (sd && sd.skill.frenzyBonus > 0 && fc2.frenzyTimer > 0) {
+      dmg = Math.floor(dmg * (1 + sd.skill.frenzyBonus / 100));
+    }
   }
 
   // Crystal Beetle: shred multiplier applies to click damage too
   dmg = Math.floor(dmg * getDamageMultiplier());
 
-  // Frost Wraith: frozen click bonus (+25% for 2s after freeze)
+  // Crystal Beetle stage 4: Fracture Strike — 20% chance at max stacks for 3× damage
+  if (state.familiars.activeId === 'crystal_beetle') {
+    const sd = getActiveFamiliarStageData();
+    const fc2 = state.familiarCombat;
+    if (sd && sd.skill.fractureChance > 0 && fc2.shatterStacks >= sd.skill.maxStacks && Math.random() < sd.skill.fractureChance) {
+      dmg *= 3;
+    }
+  }
+
+  // Frost Wraith: click bonus during freeze stun window
   const fc = state.familiarCombat;
   if (fc.frozenClickBonus > 0 && fc.frozenClickTimer > 0) {
     dmg = Math.floor(dmg * (1 + fc.frozenClickBonus / 100));
@@ -1189,7 +1235,7 @@ async function killMonster() {
   if (state.familiars.activeId === 'plague_rat') {
     const sd = getActiveFamiliarStageData();
     if (sd) {
-      const bonusPct = state.monster.isBoss ? (sd.skill.bossGoldPercent || sd.skill.bonusGoldPercent) : sd.skill.bonusGoldPercent;
+      const bonusPct = sd.skill.bonusGoldPercent;
       if (bonusPct > 0) goldEarned = Math.floor(goldEarned * (1 + bonusPct / 100));
     }
   }
@@ -1197,6 +1243,19 @@ async function killMonster() {
   state.gold += goldEarned;
   state.stats.totalKills++;
   state.stats.totalGold += goldEarned;
+
+  // Plague Rat stage 4: every N kills restore 50 HP (Plague Tribute)
+  if (state.familiars.activeId === 'plague_rat') {
+    const sd = getActiveFamiliarStageData();
+    if (sd && sd.skill.freeHealEveryN > 0) {
+      state.familiarCombat.killsForHeal++;
+      if (state.familiarCombat.killsForHeal >= sd.skill.freeHealEveryN) {
+        state.familiarCombat.killsForHeal = 0;
+        state.player.hp = Math.min(effectiveMaxHp(), state.player.hp + 50);
+        updatePlayerHPBar();
+      }
+    }
+  }
 
   // Soul Harvest charge from kills
   if (state.player.soulHarvest) {
@@ -1255,14 +1314,24 @@ async function handleMonsterHit(clientX, clientY) {
     updateHPBar();
   }
 
-  // Shadow Pup stage 4: every 5 clicks triggers a free familiar auto-attack
+  // Shadow Pup: every N clicks triggers a Shadow Combo burst
   if (state.familiars.activeId === 'shadow_pup') {
     const sd = getActiveFamiliarStageData();
-    if (sd && sd.skill.freeAttackEveryN > 0 && state.monster.hp > 0) {
+    if (sd && state.monster.hp > 0) {
       state.familiarCombat.clicksSinceShadowProc++;
-      if (state.familiarCombat.clicksSinceShadowProc >= sd.skill.freeAttackEveryN) {
+      if (state.familiarCombat.clicksSinceShadowProc >= sd.skill.comboThreshold) {
         state.familiarCombat.clicksSinceShadowProc = 0;
-        familiarAutoAttack();
+        const comboDmg = Math.floor(sd.dps * sd.skill.comboDamageMult);
+        state.monster.hp = Math.max(0, state.monster.hp - comboDmg);
+        spawnFamiliarDamageNumber(comboDmg, '#9933ff', true);
+        updateHPBar();
+        if (sd.skill.frenzyDuration > 0) {
+          state.familiarCombat.frenzyTimer = sd.skill.frenzyDuration;
+        }
+        if (state.monster.hp <= 0 && !state.playerClickLocked) {
+          state.playerClickLocked = true;
+          killMonster().then(() => { state.playerClickLocked = false; });
+        }
       }
     }
   }
@@ -1653,9 +1722,41 @@ function onResize() {
   while (particles.length < 28) particles.push(makeParticle(W, H, true));
 }
 
+/* ===== PET SELECTION SCREEN ===== */
+function showPetSelectScreen() {
+  const grid = $('pet-select-grid');
+  grid.innerHTML = '';
+
+  Object.values(FAMILIARS).forEach(def => {
+    const stage0 = def.stages[0];
+    const card = document.createElement('div');
+    card.className = `pet-select-card fam-elem-${def.element}`;
+    card.innerHTML = `
+      <div class="pet-select-sprite" style="color:${def.color};text-shadow:0 0 14px ${def.color},0 0 28px ${def.color}60;">${def.icons[0]}</div>
+      <div class="pet-select-name" style="color:${def.color};">${stage0.name}</div>
+      <div class="pet-select-skill">${getFamiliarSkillDesc(def, 0)}</div>
+      <button class="btn-primary pet-select-btn" data-id="${def.id}">Choose</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.pet-select-btn').forEach(btn => {
+    const fire = () => {
+      const id = btn.dataset.id;
+      state.familiars.owned[id] = { stage: 1 };
+      state.familiars.activeId  = id;
+      startLevel(1);
+    };
+    btn.addEventListener('click', fire);
+    btn.addEventListener('touchstart', e => { e.preventDefault(); fire(); }, { passive: false });
+  });
+
+  showScreen('petSelect');
+}
+
 /* ===== EVENT SETUP ===== */
 function setupEvents() {
-  // Start button — validate name first
+  // Start button — validate name first, then show pet selection
   $('btn-start').addEventListener('click', () => {
     const name = el.nameInput.value.trim();
     if (!name) {
@@ -1665,7 +1766,8 @@ function setupEvents() {
     }
     el.nameError.classList.add('hidden');
     state = freshState();
-    startLevel(1);
+    state.playerName = name;
+    showPetSelectScreen();
   });
 
   // Name input — clear error on typing, start on Enter
