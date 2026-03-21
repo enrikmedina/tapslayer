@@ -751,33 +751,19 @@ html, body {
   max-height: 65vh;
 }
 
-.upgrade-history-item {
+.upgrade-summary-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.8rem;
   background: var(--panel);
-  border: 2px solid var(--border-dim);
+  border: 1px solid var(--border-dim);
   border-radius: 8px;
-  padding: 0.6rem 0.9rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.92rem;
 }
 
-.upgrade-history-item.rarity-uncommon { border-color: var(--uncommon); }
-.upgrade-history-item.rarity-rare     { border-color: var(--rare); }
-.upgrade-history-item.rarity-legendary {
-  border-color: var(--legendary);
-  box-shadow: 0 0 12px rgba(255,153,0,0.4);
-}
-
-.upgrade-history-icon { font-size: 1.6rem; flex-shrink: 0; }
-
-.upgrade-history-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.upgrade-history-name { font-weight: bold; font-size: 0.95rem; }
-.upgrade-history-desc { font-size: 0.78rem; opacity: 0.7; }
+.upgrade-summary-label { opacity: 0.75; }
+.upgrade-summary-value { font-weight: bold; color: var(--gold); }
 
 #upgrade-cards {
   display: flex;

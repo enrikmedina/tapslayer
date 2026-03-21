@@ -1251,8 +1251,8 @@ function calcMonsterHP(level, isBoss) {
 
 function calcGoldReward(level, isBoss) {
   // Slower gold curve so buying everything takes until ~level 80–90
-  let g = 2 + Math.floor(level * 0.45);
-  if (isBoss) g *= 10;
+  let g = 1 + Math.floor(level * 0.25);
+  if (isBoss) g *= 6;
   g += state.player.bonusGold;
   return Math.floor(g * state.player.goldMult);
 }
@@ -1892,18 +1892,30 @@ function onBuyArmor(item, slot) {
 function openUpgradesScreen() {
   const list = $('upgrades-list');
   list.innerHTML = '';
+  const p = state.player;
+  const armor = getArmorStats();
+
+  const stats = [
+    { label: 'Base Damage',      value: `${p.damage + armor.dmgBonus}` },
+    { label: 'Crit Chance',      value: `${Math.round(p.critChance * 100)}%` },
+    { label: 'Crit Multiplier',  value: `${p.critMult.toFixed(1)}×` },
+    { label: 'Double Strike',    value: p.doubleStrike > 0 ? `${Math.round(p.doubleStrike * 100)}%` : null },
+    { label: 'Bonus Gold/Kill',  value: p.bonusGold > 0 ? `+${p.bonusGold}` : null },
+    { label: 'Gold Multiplier',  value: p.goldMult > 1 ? `×${p.goldMult}` : null },
+    { label: 'Max HP',           value: `${p.maxHp}` },
+    { label: 'Damage Reduction', value: armor.damageReduction > 0 ? `-${armor.damageReduction}` : null },
+    { label: 'Block',            value: armor.block > 0 ? `${armor.block}` : null },
+    { label: 'Soul Harvest',     value: p.soulHarvest ? 'Active' : null },
+    { label: 'Upgrades Taken',   value: `${state.pickedUpgrades.length}` },
+  ];
+
   if (state.pickedUpgrades.length === 0) {
     list.innerHTML = '<p style="opacity:0.5;text-align:center;">No upgrades yet.</p>';
   } else {
-    state.pickedUpgrades.forEach(u => {
+    stats.filter(s => s.value !== null).forEach(s => {
       const div = document.createElement('div');
-      div.className = `upgrade-history-item rarity-${u.rarity}`;
-      div.innerHTML = `<span class="upgrade-history-icon">${u.icon}</span>
-        <div class="upgrade-history-info">
-          <span class="upgrade-history-name">${u.name}</span>
-          <span class="upgrade-rarity-badge badge-${u.rarity}">${u.rarity.toUpperCase()}</span>
-          <span class="upgrade-history-desc">${u.desc}</span>
-        </div>`;
+      div.className = 'upgrade-summary-row';
+      div.innerHTML = `<span class="upgrade-summary-label">${s.label}</span><span class="upgrade-summary-value">${s.value}</span>`;
       list.appendChild(div);
     });
   }
