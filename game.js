@@ -189,6 +189,13 @@ const UPGRADE_POOL = {
     { id: 'midas',        name: 'Midas Hand',      icon: '🏆',  rarity: 'rare', desc: 'All gold rewards permanently doubled',      apply: p => { p.goldMult *= 2; } },
     { id: 'iron-will',    name: 'Iron Will',       icon: '🛡️',  rarity: 'rare', desc: '+100 max HP, fully restore HP',            apply: p => { p.maxHp += 100; p.hp = p.maxHp; } },
   ],
+  legendary: [
+    { id: 'void-rift',       name: 'Void Rift',         icon: '🌀', rarity: 'legendary', desc: '+25 damage, +10% crit, +1.0× crit mult',           critOnly: true, apply: p => { p.damage += 25; p.critChance += 0.10; p.critMult += 1.0; } },
+    { id: 'fortunes-curse',  name: "Fortune's Curse",   icon: '💰', rarity: 'legendary', desc: 'All gold rewards permanently ×4',                  apply: p => { p.goldMult *= 4; } },
+    { id: 'titans-grasp',    name: "Titan's Grasp",     icon: '⚡', rarity: 'legendary', desc: '+40 damage, +150 max HP, fully restored',           apply: p => { p.damage += 40; p.maxHp += 150; p.hp = p.maxHp; } },
+    { id: 'dark-ascension',  name: 'Dark Ascension',    icon: '🌑', rarity: 'legendary', desc: '+20 damage, +1.5× crit mult, soul harvest charged', apply: p => { p.damage += 20; p.critMult += 1.5; p.soulHarvest = true; } },
+    { id: 'phantom-barrage', name: 'Phantom Barrage',   icon: '👁️', rarity: 'legendary', desc: '+30% chance to hit twice, +10 damage',             apply: p => { p.doubleStrike += 0.30; p.damage += 10; } },
+  ],
 };
 
 /* ===== FAMILIARS DATA ===== */
@@ -504,6 +511,18 @@ const SFX = {
     const ctx = _audio(); const t = ctx.currentTime;
     [440, 554, 659, 880, 1108, 1320].forEach((f, i) =>
       _tone(f, 0.2, 'sine', 0.16, t + i * 0.07));
+  },
+
+  legendary() {
+    if (!soundEnabled) return;
+    const ctx = _audio(); const t = ctx.currentTime;
+    // Triumphant fanfare — rising arpeggio + sustained chord
+    [523, 659, 784, 1047, 1319, 1568].forEach((f, i) =>
+      _tone(f, 0.35, 'sine', 0.22, t + i * 0.08));
+    _tone(523, 0.9, 'sine', 0.12, t + 0.55);
+    _tone(659, 0.9, 'sine', 0.10, t + 0.55);
+    _tone(784, 0.9, 'sine', 0.09, t + 0.55);
+    _noise(0.15, 2000, 'bandpass', 0.08, t + 0.1);
   },
 
   gameOver() {
@@ -1223,29 +1242,37 @@ function doHitFlash() {
 
 /* ===== FORMULAS ===== */
 function calcMonsterHP(level, isBoss) {
-  const base = Math.floor(60 * Math.pow(1.18, level));
+  // Gentler exponent so L100 ≈ what L40 used to feel like
+  const base = Math.floor(40 * Math.pow(1.065, level));
   return isBoss ? base * 4 : base;
 }
 
 function calcGoldReward(level, isBoss) {
-  let g = 2 + Math.floor(level * 0.8);
+  // Slower gold curve so buying everything takes until ~level 80–90
+  let g = 2 + Math.floor(level * 0.45);
   if (isBoss) g *= 10;
   g += state.player.bonusGold;
   return Math.floor(g * state.player.goldMult);
 }
 
 function calcKillsRequired() {
+  // More monsters per level at higher tiers — levels feel meatier
+  if (state.level >= 70) return 4;
+  if (state.level >= 40) return 3;
+  if (state.level >= 20) return 2;
   return 1;
 }
 
 function calcMonsterDamage(level, isBoss) {
-  const base = Math.floor(3 * Math.pow(1.08, level));
-  return isBoss ? Math.floor(base * 1.2) : base;
+  // Lower base and gentler exponent — survivable through level 100
+  const base = Math.floor(2 * Math.pow(1.045, level));
+  return isBoss ? Math.floor(base * 1.3) : base;
 }
 
 function calcMonsterAttackInterval(level, isBoss) {
-  const ms = Math.max(900, 2200 - level * 30);
-  const base = isBoss ? Math.max(1000, ms - 200) : ms;
+  // Reaches max speed at level 100 rather than level 43
+  const ms = Math.max(850, 2400 - level * 16);
+  const base = isBoss ? Math.max(950, ms - 150) : ms;
   return base + getArmorStats().attackIntervalBonus;
 }
 
@@ -1563,9 +1590,10 @@ async function levelComplete() {
 /* ===== UPGRADE SELECTION ===== */
 function rollRarity() {
   const r = Math.random();
-  if (r < 0.60) return 'common';
-  if (r < 0.90) return 'uncommon';
-  return 'rare';
+  if (r < 0.57) return 'common';
+  if (r < 0.84) return 'uncommon';
+  if (r < 0.95) return 'rare';
+  return 'legendary';
 }
 
 function genUpgradeChoices() {
@@ -1629,6 +1657,7 @@ async function onSelectUpgrade(upgrade, selectedCard, allChoices) {
   if (selectedCard.classList.contains('selected')) return;
 
   // Apply upgrade
+  if (upgrade.rarity === 'legendary') SFX.legendary(); else SFX.evolve();
   upgrade.apply(state.player);
 
   // Animate cards
