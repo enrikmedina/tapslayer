@@ -391,12 +391,19 @@ html, body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 1rem;
   padding: 0.5rem 1rem 0.7rem;
   background: var(--panel);
   border-top: 1px solid var(--border-dim);
   z-index: 2;
   flex-shrink: 0;
+}
+
+#hud-nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
 }
 
 /* ===== MONSTER ANIMATIONS ===== */

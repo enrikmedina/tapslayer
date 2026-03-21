@@ -1590,9 +1590,9 @@ async function levelComplete() {
 /* ===== UPGRADE SELECTION ===== */
 function rollRarity() {
   const r = Math.random();
-  if (r < 0.57) return 'common';
-  if (r < 0.84) return 'uncommon';
-  if (r < 0.95) return 'rare';
+  if (r < 0.62) return 'common';
+  if (r < 0.89) return 'uncommon';
+  if (r < 0.99) return 'rare';
   return 'legendary';
 }
 
