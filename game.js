@@ -1265,7 +1265,7 @@ function calcKillsRequired() {
 
 function calcMonsterDamage(level, isBoss) {
   // Lower base and gentler exponent — survivable through level 100
-  const base = Math.floor(2 * Math.pow(1.045, level));
+  const base = Math.floor(2 * Math.pow(1.032, level));
   return isBoss ? Math.floor(base * 1.3) : base;
 }
 
