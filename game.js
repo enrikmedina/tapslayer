@@ -276,6 +276,7 @@ function freshState() {
       hp: 100,
       maxHp: 100,
     },
+    pickedUpgrades: [],
 
     monsterAttackTimer: null,
 
@@ -329,6 +330,7 @@ const screens = {
   shop:        $('screen-shop'),
   armory:      $('screen-armory'),
   familiars:   $('screen-familiars'),
+  upgrades:    $('screen-upgrades'),
   stats:       $('screen-stats'),
   leaderboard: $('screen-leaderboard'),
 };
@@ -1659,6 +1661,7 @@ async function onSelectUpgrade(upgrade, selectedCard, allChoices) {
   // Apply upgrade
   if (upgrade.rarity === 'legendary') SFX.legendary(); else SFX.evolve();
   upgrade.apply(state.player);
+  state.pickedUpgrades.push({ icon: upgrade.icon, name: upgrade.name, rarity: upgrade.rarity, desc: upgrade.desc });
 
   // Animate cards
   const allCards = el.upgradeCards.querySelectorAll('.upgrade-card');
@@ -1886,6 +1889,27 @@ function onBuyArmor(item, slot) {
   showArmorPicker(slot); // refresh picker
 }
 
+function openUpgradesScreen() {
+  const list = $('upgrades-list');
+  list.innerHTML = '';
+  if (state.pickedUpgrades.length === 0) {
+    list.innerHTML = '<p style="opacity:0.5;text-align:center;">No upgrades yet.</p>';
+  } else {
+    state.pickedUpgrades.forEach(u => {
+      const div = document.createElement('div');
+      div.className = `upgrade-history-item rarity-${u.rarity}`;
+      div.innerHTML = `<span class="upgrade-history-icon">${u.icon}</span>
+        <div class="upgrade-history-info">
+          <span class="upgrade-history-name">${u.name}</span>
+          <span class="upgrade-rarity-badge badge-${u.rarity}">${u.rarity.toUpperCase()}</span>
+          <span class="upgrade-history-desc">${u.desc}</span>
+        </div>`;
+      list.appendChild(div);
+    });
+  }
+  showScreen('upgrades');
+}
+
 function openArmory() {
   el.armoryGoldNum.textContent = formatNum(state.gold);
   el.armorItemPicker.classList.add('hidden');
@@ -2023,6 +2047,12 @@ function setupEvents() {
     stopMonsterAttackTimer();
     showStatsScreen();
   });
+
+  // Upgrades button
+  $('btn-upgrades').addEventListener('click', openUpgradesScreen);
+
+  // Upgrades close
+  $('btn-upgrades-close').addEventListener('click', () => showScreen('game'));
 
   // Armory button
   $('btn-armory').addEventListener('click', openArmory);
